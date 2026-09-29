@@ -361,6 +361,85 @@ table{border-collapse:separate;border-spacing:3px;font-size:.85rem}
 .pic::after{content:"";position:absolute;bottom:8px;left:50%;width:96px;height:14px;transform:translateX(-50%);background:radial-gradient(#000a,transparent 70%)}
 .pic img{position:relative;z-index:1;image-rendering:pixelated;max-width:none}
 .pic img.idle{animation:idle .9s steps(1,end) infinite}
+
+/* ---- Combate ---- */
+.mr .mi{margin:0;display:inline}
+.modes{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
+.md{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:20px;background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line)}
+.md.on{border-color:var(--accent);box-shadow:0 0 0 3px #ff5a4f22}.md.off{opacity:.55}
+.md b{display:block;font-size:1.05rem;margin-bottom:3px}.md p{color:var(--muted);font-size:.88rem;line-height:1.35}
+.md em{margin-left:auto;font-style:normal;font-size:.75rem;font-weight:700;background:#ffffff14;padding:4px 10px;border-radius:12px}
+.mico{font-size:1.9rem;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:#ffffff0d;flex:none}
+.diffs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dc{text-align:left;padding:16px;border-radius:16px;border:1.5px solid var(--line);background:var(--panel2);cursor:pointer;display:grid;gap:4px;transition:border-color .2s,transform .2s;color:var(--text)}
+.dc:hover{transform:translateY(-2px)}.dc.on{border-color:var(--accent);background:#ff5a4f12}.dc span{font-size:1.3rem}.dc small{color:var(--muted);line-height:1.35}
+.tp{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}.tp h3{margin:0}
+.tp .acts{display:flex;gap:8px;flex-wrap:wrap}
+.tp select{padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer}
+.go{display:block;margin:6px auto 0;padding:15px 40px;border-radius:16px;border:0;background:linear-gradient(135deg,#ff5a4f,#d93a56);color:#fff;font-size:1.1rem;font-weight:800;cursor:pointer;box-shadow:0 10px 26px #ff5a4f55;transition:transform .2s,filter .2s}
+.go:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.08)}.go:disabled{opacity:.6;cursor:wait}
+.berr{text-align:center;color:var(--warn);font-size:.9rem;margin-top:12px;min-height:1.2em}
+.bst{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:12px}
+.bst div{background:#ffffff0a;border-radius:10px;padding:6px 0;text-align:center;font-size:.7rem}
+.bst span{display:block;color:var(--muted);font-weight:600}.bst b{font-size:.95rem}
+.lvb{font-size:.7rem;color:var(--muted);font-weight:600}
+#bt-slots .mn{white-space:normal}#bt-slots .mn b,#bt-slots .mn small{display:block}#bt-slots .mn small{color:#aab0c2;font-weight:500;font-size:.72rem}
+
+.arena{position:relative;aspect-ratio:16/9;width:100%;border-radius:26px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(ellipse 55% 26% at 22% 45%,#ffffff1c,transparent),linear-gradient(180deg,#16213f 0%,#284877 34%,#4d7db0 46%,#355f42 46.2%,#274a33 70%,#1c3626 100%);box-shadow:0 20px 50px #0007}
+.arena::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,transparent 55%,#0009);pointer-events:none;z-index:6}
+.plat{position:absolute;border-radius:50%;background:radial-gradient(ellipse,#7fa56b 0,#456a3f 68%,#2f4b2c);box-shadow:0 14px 24px #0007,inset 0 4px 8px #ffffff22}
+.plat.pe{right:8%;top:38%;width:34%;height:12%}.plat.pp{left:2%;bottom:5%;width:46%;height:17%}
+.bsp{position:absolute;transform:translate(-50%,-100%);z-index:3;pointer-events:none;opacity:0}
+.bsp img{display:block;image-rendering:pixelated;max-width:none}
+.bsp.e{left:71%;top:46%}.bsp.p{left:26%;top:91%;z-index:4}
+.bsp img.flip{scale:-1 1}.bsp img.idle{animation:idle .9s steps(1,end) infinite}
+.hud{position:absolute;z-index:7;background:#0b0f1acc;backdrop-filter:blur(6px);border:1px solid #ffffff1c;border-radius:16px;padding:12px 16px;width:min(300px,42%)}
+.hud.hen{top:6%;left:4%}.hud.hme{bottom:7%;right:4%}
+.hh{display:flex;align-items:center;gap:8px;margin-bottom:8px}.hh .nm{font-size:1.05rem;font-weight:800;text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hh .lv{color:var(--muted);font-size:.8rem;font-weight:600;flex:none}
+.stx{margin-left:auto;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:8px;color:#fff}.stx:empty{display:none}
+.st-brn{background:#e2562b}.st-par{background:#c9a400;color:#1a1400}.st-psn,.st-tox{background:#9b4fb0}.st-slp{background:#6b7a99}.st-frz{background:#5bb6d6}
+.hpb{height:10px;border-radius:8px;background:#ffffff1a;overflow:hidden}.hpb i{display:block;height:100%;width:100%;border-radius:8px;background:#4ade80;transition:background .3s}
+.hpb i.mid{background:#f5c542}.hpb i.lo{background:#ef5350}
+.hpt{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--muted);margin-top:7px;font-weight:600}
+.pips{display:flex;gap:4px}.pips i{width:8px;height:8px;border-radius:50%;background:#ffffff40}.pips i.ok{background:#fff}.pips i.ko{background:#ef535066}
+.turnb{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:8;background:#0b0f1acc;border:1px solid #ffffff22;border-radius:20px;padding:5px 16px;font-size:.8rem;font-weight:700}
+.fxl{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}.fxe{position:absolute;left:0;top:0;pointer-events:none}
+.flash{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none}
+.pop{position:absolute;z-index:8;transform:translate(-50%,-50%);font-weight:800;font-size:1rem;padding:5px 14px;border-radius:14px;white-space:nowrap;background:#0b0f1aee;border:1px solid #ffffff30;pointer-events:none}
+.pop-good{color:#86efac;border-color:#4ade80}.pop-bad{color:#fca5a5}.pop-crit{color:#fde047;border-color:#facc15}.pop-up{color:#86efac}.pop-down{color:#fca5a5}
+.pop[class*="st-"]{color:#fff;border-color:transparent}
+
+.ctl{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px}
+.cp{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 20px}
+.cp h4{font-size:.75rem;color:var(--muted);margin-bottom:12px;font-weight:700;letter-spacing:.08em}
+.cbox{min-height:176px;display:flex;flex-direction:column;justify-content:center}
+.msg{font-size:1.1rem;font-weight:600;text-align:center;padding:26px 12px;animation:fadein .25s}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bm{padding:22px 16px;border-radius:18px;border:1.5px solid var(--line);background:linear-gradient(160deg,var(--panel2),var(--panel));cursor:pointer;font-weight:800;font-size:1.05rem;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text);transition:transform .15s,border-color .15s}
+.bm:hover:not(:disabled){transform:translateY(-3px);border-color:var(--accent)}.bm:disabled{opacity:.4;cursor:not-allowed}.bm span{font-size:1.6rem}
+.lnk{display:block;margin:12px auto 0;background:none;border:0;color:var(--muted);cursor:pointer;font-size:.85rem}.lnk:hover{color:var(--text)}
+.mvg,.swg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mc{text-align:left;padding:12px 14px;border-radius:16px;border:1.5px solid color-mix(in srgb,var(--t) 55%,transparent);background:linear-gradient(160deg,color-mix(in srgb,var(--t) 22%,var(--panel2)),var(--panel2));cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;gap:2px 10px;align-items:center;color:var(--text);transition:transform .15s,box-shadow .15s}
+.mc:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 22px #0006}.mc:disabled{opacity:.35;cursor:not-allowed}
+.mico2{font-size:1.4rem}.mc b{display:block}.mc small{color:#c5cad8}
+.mc .mm{grid-column:1/-1;font-size:.75rem;color:#aab0c2;margin-top:6px}
+.ef{font-style:normal;font-weight:800;font-size:.75rem;padding:2px 8px;border-radius:10px}.ef.good{background:#4ade8033;color:#86efac}.ef.bad{background:#fbbf2433;color:#fcd34d}.ef.no{background:#6b728055;color:#d1d5db}
+.sw{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--panel2);cursor:pointer;text-align:left;color:var(--text)}
+.sw:hover:not(:disabled){border-color:var(--accent)}.sw:disabled{opacity:.35;cursor:not-allowed}
+.sw img{width:52px;height:52px;flex:none}.sw b{display:block;text-transform:capitalize}.sw small{color:var(--muted)}.sw .hpb{margin-top:5px;height:6px}
+.blog{height:300px;overflow-y:auto;font-size:.85rem;display:flex;flex-direction:column;gap:4px;padding-right:6px}
+.lt{margin-top:10px;font-weight:800;color:var(--accent);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.ln{color:#cfd3e0;line-height:1.35}.ln.good{color:#86efac}.ln.bad{color:#fcd34d}.ln.crit{color:#fde047}.ln.dmg{color:var(--muted)}
+.bopt{margin-top:12px;color:var(--muted);font-size:.8rem;display:flex;gap:8px;align-items:center;cursor:pointer}
+.bres{position:fixed;inset:0;z-index:250;background:#05070ccc;backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px}
+.bres[hidden]{display:none}
+.rc{background:var(--panel);border:1px solid var(--line);border-radius:28px;padding:40px 44px;text-align:center;max-width:460px;box-shadow:0 30px 70px #000a;animation:up .45s cubic-bezier(.2,.9,.3,1)}
+.rc .big{font-size:3.4rem;margin-bottom:8px}.rc h2{font-size:2rem;letter-spacing:-.02em;margin-bottom:8px}.rc p{color:var(--muted);margin-bottom:24px}
+.row2{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@media(max-width:900px){.ctl{grid-template-columns:1fr}.blog{height:190px}}
+@media(max-width:700px){.arena{aspect-ratio:4/3}.hud{padding:8px 10px;width:48%}.modes,.diffs{grid-template-columns:1fr}.mvg,.swg,.menu{grid-template-columns:1fr}.rc{padding:28px 22px}}
 </style>
 </head>
 <body>
@@ -372,6 +451,7 @@ table{border-collapse:separate;border-spacing:3px;font-size:.85rem}
       <button class="tab on" id="t-dex">Pokédex</button>
       <button class="tab" id="t-calc">Calculadora de daño</button>
       <button class="tab" id="t-team">Equipos</button>
+      <button class="tab" id="t-battle">⚔️ Combate</button>
     </nav>
     <div class="search" id="sb">
       <div class="sbox">
@@ -465,6 +545,38 @@ table{border-collapse:separate;border-spacing:3px;font-size:.85rem}
   <div class="slots" id="slots"></div>
   <div id="analysis"></div>
 </section>
+<section class="view" id="v-battle">
+  <div id="bt-prep">
+    <div class="thead"><div><h2>⚔️ Combate</h2><p class="hint" style="margin:0">Elige un modo, monta tu equipo de hasta 6 Pokémon (nivel 50) y demuestra quién manda.</p></div></div>
+    <div class="modes" id="bt-modes"></div>
+    <div class="panel"><h3>Dificultad</h3><div class="diffs" id="bt-diffs"></div></div>
+    <div class="panel">
+      <div class="tp"><h3>Tu equipo</h3>
+        <div class="acts"><select id="bt-imp" onchange="btImport(this.value);this.value=''" aria-label="Importar equipo"></select>
+          <button class="btn alt" onclick="btRandom()">🎲 Aleatorio</button><button class="btn alt" onclick="btClear()">Vaciar</button></div></div>
+      <div class="slots" id="bt-slots"></div>
+      <button class="go" id="bt-go" onclick="btStart()">⚔️ Comenzar combate</button>
+      <div class="berr" id="bt-err"></div>
+    </div>
+  </div>
+  <div id="bt-game" hidden>
+    <div class="arena" id="ar">
+      <div class="plat pe"></div><div class="plat pp"></div>
+      <div class="bsp e"><img id="b-se" alt=""></div>
+      <div class="bsp p"><img id="b-sp" alt=""></div>
+      <div class="fxl" id="b-fx"></div><div class="flash" id="b-fl"></div>
+      <div class="turnb" id="b-turn">Turno 1</div>
+      <div class="hud hen" id="b-he"><div class="hh"><b class="nm"></b><span class="lv"></span><span class="stx"></span></div><div class="hpb"><i></i></div><div class="hpt"><span class="ht"></span><span class="pips"></span></div></div>
+      <div class="hud hme" id="b-hp"><div class="hh"><b class="nm"></b><span class="lv"></span><span class="stx"></span></div><div class="hpb"><i></i></div><div class="hpt"><span class="ht"></span><span class="pips"></span></div></div>
+    </div>
+    <div class="ctl">
+      <div class="cp"><h4>ACCIONES</h4><div class="cbox" id="bt-ctl"></div></div>
+      <div class="cp"><h4>REGISTRO DE COMBATE</h4><div class="blog" id="bt-log"></div>
+        <label class="bopt"><input type="checkbox" onchange="B.fast=this.checked"> ⏩ Animaciones rápidas</label></div>
+    </div>
+  </div>
+  <div class="bres" id="bt-res" hidden></div>
+</section>
 </main>
 
 <button class="top" id="top" aria-label="Volver arriba">↑</button>
@@ -489,19 +601,19 @@ const mini=id=>`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites
 
 /* ---------- Nombres en español (GraphQL de PokeAPI, idioma 7 = español) ---------- */
 const ES={mon:{},abi:{},move:{}};
-let MOVES=[],MOVESD=[],gqlOk=false;
+let MOVES=[],MOVESD=[],MOVESB=[],gqlOk=false;
 const monName=(id,slug)=>ES.mon[id]||pretty(slug);
 const abiName=s=>ES.abi[s]||pretty(s);
 async function loadNames(){
   const q=`{a:pokemon_v2_pokemonspeciesname(where:{language_id:{_eq:7}},limit:2000){name pokemon_species_id}
   b:pokemon_v2_abilityname(where:{language_id:{_eq:7}},limit:3000){name pokemon_v2_ability{name}}
-  c:pokemon_v2_movename(where:{language_id:{_eq:7}},limit:4000){name pokemon_v2_move{name power pokemon_v2_type{name} pokemon_v2_movedamageclass{name}}}}`;
+  c:pokemon_v2_movename(where:{language_id:{_eq:7}},limit:4000){name pokemon_v2_move{name power accuracy pp priority pokemon_v2_type{name} pokemon_v2_movedamageclass{name}}}}`;
   try{
     const r=await fetch(GQL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})});
     const d=(await r.json()).data;
     d.a.forEach(x=>ES.mon[x.pokemon_species_id]=x.name);
     d.b.forEach(x=>{if(x.pokemon_v2_ability)ES.abi[x.pokemon_v2_ability.name]=x.name});
-    d.c.forEach(x=>{const m=x.pokemon_v2_move;if(m&&m.pokemon_v2_type)ES.move[m.name]={n:x.name,p:m.power||0,t:m.pokemon_v2_type.name,c:m.pokemon_v2_movedamageclass.name}});
+    d.c.forEach(x=>{const m=x.pokemon_v2_move;if(m&&m.pokemon_v2_type)ES.move[m.name]={n:x.name,p:m.power||0,t:m.pokemon_v2_type.name,c:m.pokemon_v2_movedamageclass.name,a:m.accuracy,pp:m.pp,pr:m.priority||0}});
     gqlOk=Object.keys(ES.move).length>100;
   }catch(e){}
 }
@@ -540,11 +652,11 @@ function attach(input,search,render,label,pick){
 
 /* ---------- Navegación ---------- */
 function view(v){
-  ['dex','calc','team'].forEach(n=>{$('v-'+n).classList.toggle('on',v===n);$('t-'+n).classList.toggle('on',v===n)});
+  ['dex','calc','team','battle'].forEach(n=>{$('v-'+n).classList.toggle('on',v===n);$('t-'+n).classList.toggle('on',v===n)});
   $('sb').style.display=v==='dex'?'block':'none';
   window.scrollTo(0,0);
 }
-$('t-dex').onclick=()=>view('dex');$('t-calc').onclick=()=>view('calc');$('t-team').onclick=()=>view('team');
+$('t-dex').onclick=()=>view('dex');$('t-calc').onclick=()=>view('calc');$('t-team').onclick=()=>view('team');$('t-battle').onclick=()=>view('battle');
 let last=0;
 addEventListener('scroll',()=>{
   const y=scrollY;$('hd').classList.toggle('hide',y>last&&y>150);last=y;
@@ -578,7 +690,7 @@ async function init(){
     all.forEach(p=>p.types=p.types.filter(Boolean));
     applyFilter();
   }catch(e){$('grid').innerHTML='<div class="empty">No se pudo cargar la Pokédex. Revisa tu conexión.</div>';return}
-  loadTeams();renderTeam();initNames();
+  loadTeams();renderTeam();btInit();initNames();
 }
 /* Los nombres en español llegan después y se cambian sin volver a pintar las imágenes */
 async function initNames(){
@@ -586,10 +698,11 @@ async function initNames(){
   if(!gqlOk&&mv)mv.results.forEach(m=>{ES.move[m.name]={n:pretty(m.name),p:null,t:null,c:null}});
   MOVES=Object.entries(ES.move).map(([slug,o])=>({slug,...o,k:norm(o.n)+'|'+slug})).sort((a,b)=>a.n.localeCompare(b.n,'es'));
   MOVESD=MOVES.filter(m=>m.c!=='status');
+  MOVESB=MOVES.filter(m=>!EXCL.has(m.slug)&&(m.c===null||(m.c!=='status'&&m.p>0)||STATUS_OK.has(m.slug)));
   all.forEach(p=>{p.es=monName(p.id,p.name);p.k=norm(p.es)+'|'+p.name+'|'+p.id});
   document.querySelectorAll('.card').forEach(c=>{c.querySelector('h3').textContent=all[c.dataset.id-1].es});
   if($('q').value.trim())applyFilter();
-  renderTeam();
+  renderTeam();btRender();
 }
 function toggleType(t,el){
   const on=typeFilter!==t;
@@ -752,6 +865,10 @@ async function pickMove(slug){
 ['a-lv','a-ev','d-lv','d-ev','mv-cat'].forEach(id=>$(id).addEventListener('change',()=>{syncStats();calc()}));
 document.querySelectorAll('#v-calc input,#v-calc select').forEach(el=>el.addEventListener('input',calc));
 
+/* Núcleo de daño compartido por la calculadora y el modo Combate */
+const baseDamage=(L,pow,A,D)=>Math.floor(Math.floor((Math.floor(2*L/5)+2)*pow*A/D)/50)+2;
+const rollDamage=(base,i,mult)=>Math.floor(Math.floor(base*i/100)*mult);
+const typeEff=(mt,dt)=>dt.reduce((m,t)=>m*((CH[mt]&&CH[mt][t]!==undefined)?CH[mt][t]:1),1);
 function calc(){
   const pow=+$('mv-pow').value;
   if(!pow){if(S.move&&S.move.c!=='status')$('res').innerHTML='<span style="color:var(--muted)">Este movimiento tiene potencia variable. Escribe la potencia a mano.</span>';return}
@@ -764,11 +881,11 @@ function calc(){
   const di=$('d-item').value;
   if(di==='vest'&&cat==='special')D*=1.5;
   if(di==='evio')D*=1.5;
-  const base0=Math.floor(Math.floor((Math.floor(2*L/5)+2)*pow*A/D)/50)+2;
+  const base0=baseDamage(L,pow,A,D);
   const at=S.a?S.a.types.map(x=>x.type.name):[];
   const stab=at.includes(mt)?1.5:1;
   const dt=S.d?S.d.types.map(x=>x.type.name):[];
-  const eff=dt.reduce((m,t)=>m*((CH[mt]&&CH[mt][t]!==undefined)?CH[mt][t]:1),1);
+  const eff=typeEff(mt,dt);
   const wx=$('wx').value;let w=1;
   if((wx==='sun'&&mt==='fire')||(wx==='rain'&&mt==='water'))w=1.5;
   if((wx==='sun'&&mt==='water')||(wx==='rain'&&mt==='fire'))w=.5;
@@ -778,7 +895,7 @@ function calc(){
   if(da==='ms')dm=.5;if(da==='fat'&&(mt==='fire'||mt==='ice'))dm=.5;
   const extra=(it===1.3||it===1.2?it:1)*w*crit*burn*dm;
   const rolls=[];
-  for(let i=85;i<=100;i++)rolls.push(Math.floor(Math.floor(base0*i/100)*stab*eff*extra));
+  for(let i=85;i<=100;i++)rolls.push(rollDamage(base0,i,stab*eff*extra));
   const mn=rolls[0],mx=rolls[15];
   const p=v=>(v/hp*100).toFixed(1).replace('.',',');
   const w0=Math.min(100,mx/hp*100);
@@ -998,6 +1115,544 @@ function analysisHTML(){
     sta:`<div class="panel"><h3>📊 Estadísticas base</h3>${stt}</div>`
   }[ATAB];
   return `<div class="atabs">${TABS.map(([k,l])=>`<button class="${k===ATAB?'on':''}" onclick="setTab('${k}')">${l}</button>`).join('')}</div>${body}`;
+}
+
+/* ==========================================================================
+   COMBATE · núcleo sin DOM: constantes, estado (B), motor (BE) e IA (BAI)
+   Reutiliza el núcleo de daño de la calculadora: baseDamage, rollDamage, typeEff
+   ========================================================================== */
+const EXCL=new Set(['hyper-beam','giga-impact','blast-burn','frenzy-plant','hydro-cannon','rock-wrecker','roar-of-time','prismatic-laser','eternabeam','meteor-assault','solar-beam','solar-blade','sky-attack','skull-bash','razor-wind','fly','dig','dive','bounce','phantom-force','shadow-force','freeze-shock','ice-burn','focus-punch','explosion','self-destruct','misty-explosion','final-gambit','mind-blown','steel-beam','metronome','sleep-talk','mirror-move','me-first','copycat','assist','struggle','counter','mirror-coat','metal-burst','bide','fake-out','last-resort','dream-eater','synchronoise','spit-up','future-sight','doom-desire','sucker-punch','thunder-cage','belch','poltergeist','steel-roller','ice-spinner']);
+const STATUS_OK=new Set(['thunder-wave','glare','stun-spore','toxic','poison-powder','will-o-wisp','sleep-powder','spore','hypnosis','sing','lovely-kiss','swords-dance','dragon-dance','nasty-plot','calm-mind','bulk-up','agility','iron-defense','amnesia','recover','roost','soft-boiled','slack-off','synthesis','moonlight','morning-sun','shell-smash','quiver-dance','work-up','growl','leer','screech','tail-whip','charm','sand-attack','flash']);
+const SELF_DROP=new Set(['close-combat','overheat','draco-meteor','leaf-storm','psycho-boost','superpower','hammer-arm','fleur-cannon','v-create','scale-shot','clanging-scales','armor-cannon','make-it-rain','headlong-rush','spin-out','ice-hammer']);
+const AIL={paralysis:'par',burn:'brn',poison:'psn',sleep:'slp',freeze:'frz'};
+const STK={attack:'atk',defense:'def','special-attack':'spa','special-defense':'spd',speed:'spe'};
+const STN={atk:'Ataque',def:'Defensa',spa:'Ataque Esp.',spd:'Defensa Esp.',spe:'Velocidad'};
+const STM={brn:'se quemó',par:'está paralizado: le costará moverse',psn:'fue envenenado',tox:'fue gravemente envenenado',slp:'se durmió',frz:'se congeló'};
+const STL={brn:'QUE',par:'PAR',psn:'ENV',tox:'TOX',slp:'DOR',frz:'CON'};
+const STRUGGLE={slug:'struggle',n:'Forcejeo',t:'normal',c:'physical',p:50,a:null,pp:1,pr:0,nt:1,rec:25,ail:'none',ailC:0,crit:0,drain:0,heal:0,flinch:0,minH:1,maxH:1,sc:0,st:[],tg:'selected-pokemon'};
+
+/* Estado de la batalla. side 'p' = jugador, 'a' = IA. Aquí es donde se enchufaría un segundo jugador (PvP). */
+const B={diff:'normal',p:{team:[],i:0},a:{team:[],i:0},turn:0,busy:false,over:null,fast:false};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms*(B.fast?.45:1)));
+
+const BE={
+  other:s=>s==='p'?'a':'p',
+  act:s=>B[s].team[B[s].i],
+  nm:(m,s)=>s==='a'?m.name+' rival':m.name,
+  stg:v=>v>=0?(2+v)/2:2/(2-v),
+  eff(m,k){let v=m.st[k]*BE.stg(m.stg[k]);if(k==='spe'&&m.status==='par')v*=.5;return v},
+  moveOf:(s,i)=>i<0?{...STRUGGLE}:BE.act(s).mv[i],
+  alive:s=>B[s].team.map((m,i)=>m.fainted?-1:i).filter(i=>i>=0),
+  hpPct:s=>B[s].team.reduce((x,m)=>x+m.hp/m.maxHp,0)/B[s].team.length,
+  /* Mismo cálculo que la calculadora: baseDamage · STAB · efectividad · crítico · quemadura · variación 85-100 */
+  calc(att,def,mv,o={}){
+    const ph=mv.c==='physical',base=baseDamage(att.lv,mv.p,BE.eff(att,ph?'atk':'spa'),BE.eff(def,ph?'def':'spd'));
+    const eff=mv.nt?1:typeEff(mv.t,def.types),stab=!mv.nt&&att.types.includes(mv.t)?1.5:1;
+    const mult=stab*eff*(o.crit?1.5:1)*(att.status==='brn'&&ph?.5:1);
+    return {eff,dmg:eff===0?0:Math.max(1,rollDamage(base,o.rnd||100,mult))};
+  },
+  hits(mv){if(mv.minH===mv.maxH)return mv.minH;if(mv.minH===2&&mv.maxH===5){const r=Math.random();return r<.35?2:r<.7?3:r<.85?4:5}return mv.minH+Math.floor(Math.random()*(mv.maxH-mv.minH+1))},
+
+  async canMove(s){
+    const m=BE.act(s),n=BE.nm(m,s);
+    if(m.flinch){m.flinch=false;await UI.say(`${n} no pudo moverse por el retroceso.`);return false}
+    if(m.status==='slp'){
+      if(--m.sl>0){await UI.pop(s,'Zzz','st-slp');await UI.say(`${n} está profundamente dormido.`);return false}
+      m.status=null;UI.hud(s);await UI.say(`¡${n} se despertó!`);
+    }
+    if(m.status==='frz'){
+      if(Math.random()<.2){m.status=null;UI.hud(s);await UI.say(`¡${n} se descongeló!`)}
+      else{await UI.say(`${n} está congelado y no puede moverse.`);return false}
+    }
+    if(m.status==='par'&&Math.random()<.25){await UI.pop(s,'PAR','st-par');await UI.say(`${n} está paralizado y no puede moverse.`);return false}
+    return true;
+  },
+  async inflict(s,st,loud){
+    const m=BE.act(s),imm={brn:['fire'],par:['electric'],psn:['poison','steel'],tox:['poison','steel'],frz:['ice'],slp:[]}[st];
+    if(m.status||m.hp<=0||imm.some(t=>m.types.includes(t))){if(loud)await UI.say(m.status?`¡${BE.nm(m,s)} ya tiene un estado alterado!`:`¡No afecta a ${BE.nm(m,s)}!`);return false}
+    m.status=st;m.sl=st==='slp'?1+Math.floor(Math.random()*3):0;m.tx=1;UI.hud(s);
+    await UI.pop(s,STL[st],'st-'+st);await UI.say(`${BE.nm(m,s)} ${STM[st]}.`);return true;
+  },
+  async stages(s,list){
+    const m=BE.act(s);let did=false;
+    for(const [stat,ch] of list){
+      const k=STK[stat];if(!k)continue;
+      const nv=Math.max(-6,Math.min(6,m.stg[k]+ch));
+      if(nv===m.stg[k]){await UI.say(`¡${STN[k]} de ${BE.nm(m,s)} no puede ${ch>0?'subir':'bajar'} más!`);continue}
+      m.stg[k]=nv;did=true;
+      await UI.pop(s,`${STN[k]} ${ch>0?'▲':'▼'}`,ch>0?'pop-up':'pop-down');
+      await UI.say(`${STN[k]} de ${BE.nm(m,s)} ${ch>0?'subió':'bajó'}${Math.abs(ch)>1?' mucho':''}.`);
+    }
+    return did;
+  },
+  async heal(s,pct){
+    const m=BE.act(s),h=Math.min(m.maxHp-m.hp,Math.floor(m.maxHp*pct/100));
+    if(h<=0)return false;m.hp+=h;await UI.hp(s);await UI.say(`${BE.nm(m,s)} recuperó PS.`);return true;
+  },
+  async statusMove(s,mv){
+    const att=BE.act(s),o=BE.other(s);let did=false;
+    if(AIL[mv.ail]){did=await BE.inflict(o,mv.slug==='toxic'?'tox':AIL[mv.ail],true)||did;if(!did)return}
+    if(mv.st.length){const self=/user/.test(mv.tg);did=(await BE.stages(self?s:o,mv.st))||did}
+    if(mv.heal>0){const r=await BE.heal(s,mv.heal);if(!r)await UI.say(`¡Los PS de ${BE.nm(att,s)} ya están al máximo!`);did=true}
+    if(!did)await UI.say('Pero no tuvo efecto...');
+  },
+  async exec(s,mv){
+    const att=BE.act(s),o=BE.other(s),def=BE.act(o);
+    if(!await BE.canMove(s))return;
+    if(mv.slug!=='struggle')mv.pp=Math.max(0,mv.pp-1);
+    await UI.say(`${BE.nm(att,s)} usó ${mv.n}.`);
+    if(mv.a&&Math.random()*100>mv.a){await UI.miss(s);await UI.say('¡El ataque falló!');return}
+    await UI.attack(s,mv);
+    if(mv.c==='status'){await BE.statusMove(s,mv);return}
+    const n=mv.maxH>1?BE.hits(mv):1;let tot=0,cnt=0;
+    for(let h=0;h<n&&def.hp>0;h++){
+      const crit=Math.random()<[1/24,1/8,1/2,1][Math.min(3,mv.crit)];
+      const r=BE.calc(att,def,mv,{crit,rnd:85+Math.floor(Math.random()*16)});
+      if(r.eff===0){await UI.say(`¡No afecta a ${BE.nm(def,o)}!`);return}
+      const d=Math.min(def.hp,r.dmg);def.hp-=d;tot+=d;cnt++;
+      await UI.hit(o,{eff:r.eff,crit,dmg:d});
+    }
+    if(n>1)await UI.say(`¡Golpeó ${cnt} veces!`);
+    if(tot>0&&mv.drain>0){att.hp=Math.min(att.maxHp,att.hp+Math.max(1,Math.floor(tot*mv.drain/100)));await UI.hp(s);await UI.say(`${BE.nm(att,s)} absorbió energía.`)}
+    let rec=0;
+    if(tot>0&&mv.drain<0)rec=Math.max(1,Math.floor(tot*-mv.drain/100));
+    if(mv.rec)rec=Math.max(1,Math.floor(att.maxHp*mv.rec/100));
+    if(rec){att.hp=Math.max(0,att.hp-rec);await UI.hp(s);await UI.say(`¡${BE.nm(att,s)} sufrió daño de retroceso!`)}
+    if(def.hp>0){
+      if(AIL[mv.ail]&&mv.ailC>0&&Math.random()*100<mv.ailC)await BE.inflict(o,mv.slug==='poison-fang'?'tox':AIL[mv.ail],false);
+      if(mv.st.length&&def.hp>0){
+        const self=SELF_DROP.has(mv.slug)||mv.tg==='user';
+        if(self||Math.random()*100<(mv.sc||100))await BE.stages(self?s:o,mv.st);
+      }
+      if(mv.flinch>0&&Math.random()*100<mv.flinch)def.flinch=true;
+    }else await BE.faintNow(o);
+    if(att.hp<=0)await BE.faintNow(s);
+  },
+  async faintNow(s){
+    const m=BE.act(s);if(m.fainted)return;
+    m.fainted=true;m.hp=0;await UI.faint(s);await UI.say(`¡${BE.nm(m,s)} se ha debilitado!`);
+    if(!BE.alive('p').length)B.over='a';else if(!BE.alive('a').length)B.over='p';
+  },
+  async endTurn(){
+    const ord=['p','a'].sort((x,y)=>BE.eff(BE.act(y),'spe')-BE.eff(BE.act(x),'spe'));
+    for(const s of ord){
+      const m=BE.act(s);if(m.fainted||m.hp<=0||B.over)continue;
+      let d=0,msg='';
+      if(m.status==='brn'){d=Math.max(1,Math.floor(m.maxHp/16));msg='sufre quemaduras'}
+      else if(m.status==='psn'){d=Math.max(1,Math.floor(m.maxHp/8));msg='sufre envenenamiento'}
+      else if(m.status==='tox'){d=Math.max(1,Math.floor(m.maxHp*m.tx/16));m.tx=Math.min(15,m.tx+1);msg='sufre envenenamiento grave'}
+      if(d){m.hp=Math.max(0,m.hp-d);await UI.hp(s);await UI.say(`${BE.nm(m,s)} ${msg}.`);if(m.hp<=0)await BE.faintNow(s)}
+    }
+  },
+  async switchTo(s,i,forced){
+    const old=BE.act(s);
+    if(!forced&&!old.fainted){await UI.say(s==='p'?`¡Vuelve, ${old.name}!`:`El entrenador rival retiró a ${old.name}.`);await UI.leave(s)}
+    old.stg={atk:0,def:0,spa:0,spd:0,spe:0};old.tx=1;old.flinch=false;
+    B[s].i=i;const m=BE.act(s);
+    UI.switchIn(s,m);
+    await UI.say(s==='p'?`¡Adelante, ${m.name}!`:`El entrenador rival envió a ${m.name}.`);
+    await UI.enter(s);
+  },
+  async replacements(){
+    if(B.over)return;
+    for(const s of ['p','a']){
+      if(!BE.act(s).fainted)continue;
+      const opts=BE.alive(s);
+      const i=s==='p'?await UI.forceSwitch(opts):BAI.chooseSwitch(B.a.team,BE.act('p'),B.diff,-1);
+      await BE.switchTo(s,i,true);
+    }
+  },
+  async turn(pa,aa){
+    B.turn++;BE.act('p').flinch=false;BE.act('a').flinch=false;
+    for(const [s,ac] of [['p',pa],['a',aa]])if(ac.t==='switch')await BE.switchTo(s,ac.i);
+    const q=[['p',pa],['a',aa]].filter(x=>x[1].t==='move').map(([s,ac])=>({s,mv:BE.moveOf(s,ac.i)}));
+    q.sort((x,y)=>(y.mv.pr-x.mv.pr)||(BE.eff(BE.act(y.s),'spe')-BE.eff(BE.act(x.s),'spe'))||(Math.random()-.5));
+    for(const it of q){
+      if(B.over)return;
+      if(BE.act(it.s).fainted)continue;
+      await BE.exec(it.s,it.mv);
+    }
+    if(B.over)return;
+    await BE.endTurn();
+    if(B.over)return;
+    await BE.replacements();
+  }
+};
+
+/* ==========================================================================
+   IA · módulo separado. Solo usa información que un jugador también ve:
+   tipos, nivel y % de PS del rival activo, sus propios datos y las estadísticas
+   base de la especie. Nunca lee los movimientos ni la acción elegida por el jugador.
+   ========================================================================== */
+const BAI={
+  evaluateMove(att,def,mv,diff){
+    if(mv.pp<=0)return -1e9;
+    if(mv.c==='status')return BAI.evalStatus(att,def,mv);
+    const dmg=BE.calc(att,def,mv,{rnd:92}).dmg,acc=(mv.a||100)/100;
+    let sc=Math.min(dmg,def.hp)/def.maxHp*100*acc;
+    if(dmg>=def.hp)sc+=(diff==='hard'?60:30)*acc;
+    if(mv.pr>0&&dmg>=def.hp)sc+=40;
+    if(diff==='hard'&&mv.ailC>0&&!def.status)sc+=mv.ailC*.15;
+    return sc;
+  },
+  evalStatus(att,def,mv){
+    let sc=0;const hp=att.hp/att.maxHp;
+    if(AIL[mv.ail]){const st=mv.slug==='toxic'?'tox':AIL[mv.ail];
+      const imm={brn:['fire'],par:['electric'],psn:['poison','steel'],tox:['poison','steel'],frz:['ice'],slp:[]}[st];
+      sc+=(def.status||imm.some(t=>def.types.includes(t)))?-30:({slp:45,par:32,brn:30,tox:38,psn:26,frz:40}[st]||20)*((mv.a||100)/100)}
+    if(mv.st.length){const self=/user/.test(mv.tg);
+      mv.st.forEach(([k,ch])=>{const kk=STK[k];if(!kk)return;
+        if(self)sc+=ch>0?(hp>.6&&att.stg[kk]<2?26:-15):-20; else sc+=ch<0?(def.stg[kk]>-2?10:-10):-10})}
+    if(mv.heal>0)sc+=hp<.5?48:-40;
+    return sc||-5;
+  },
+  evaluatePokemon(m,foe){
+    const off=Math.max(...m.types.map(t=>typeEff(t,foe.types))),df=Math.max(...foe.types.map(t=>typeEff(t,m.types)));
+    const sp=BE.eff(m,'spe')>BE.eff(foe,'spe')?.2:-.1;
+    return (Math.log2(Math.max(off,.25))-Math.log2(Math.max(df,.25)))*.5+(m.hp/m.maxHp-.5)*.6+sp;
+  },
+  chooseMove(ai,foe,diff){
+    const ms=ai.mv.map((m,i)=>({i,s:BAI.evaluateMove(ai,foe,m,diff),m})).filter(x=>x.s>-1e8);
+    if(!ms.length)return {t:'move',i:-1};
+    if(diff==='easy'){
+      if(Math.random()<.4)return {t:'move',i:ms[Math.floor(Math.random()*ms.length)].i};
+      const w=ms.map(x=>x.m.p+10),tot=w.reduce((a,b)=>a+b,0);let r=Math.random()*tot;
+      for(let k=0;k<ms.length;k++){r-=w[k];if(r<=0)return {t:'move',i:ms[k].i}}
+    }
+    ms.sort((a,b)=>b.s-a.s);
+    if(diff==='normal'&&ms.length>1&&Math.random()<.15)return {t:'move',i:ms[1].i};
+    return {t:'move',i:ms[0].i};
+  },
+  wantSwitch(diff){
+    const ai=BE.act('a'),foe=BE.act('p'),alive=BE.alive('a').filter(i=>i!==B.a.i);
+    if(!alive.length||B.a.lastSw>=B.turn-2)return false;
+    const best=Math.max(...ai.mv.map(m=>BAI.evaluateMove(ai,foe,m,diff)));
+    const threat=Math.max(...foe.types.map(t=>typeEff(t,ai.types)));
+    const cur=BAI.evaluatePokemon(ai,foe),bench=Math.max(...alive.map(i=>BAI.evaluatePokemon(B.a.team[i],foe)));
+    return (best<18||threat>=2)&&bench>cur+(diff==='hard'?.35:.7)&&Math.random()<(diff==='hard'?.7:.35);
+  },
+  chooseSwitch(team,foe,diff,cur){
+    const al=team.map((m,i)=>m.fainted||i===cur?-1:i).filter(i=>i>=0);
+    if(!al.length)return -1;
+    if(diff==='easy')return al[Math.floor(Math.random()*al.length)];
+    let bi=al[0],bs=-1e9;
+    al.forEach(i=>{const m=team[i],mvBest=Math.max(0,...m.mv.filter(x=>x.c!=='status'&&x.pp>0).map(x=>BE.calc(m,foe,x,{rnd:92}).dmg))/Math.max(1,foe.hp);
+      const sc=BAI.evaluatePokemon(m,foe)+mvBest;if(sc>bs){bs=sc;bi=i}});
+    return bi;
+  },
+  choose(diff){
+    if(diff!=='easy'&&BAI.wantSwitch(diff)){const k=BAI.chooseSwitch(B.a.team,BE.act('p'),diff,B.a.i);if(k>=0){B.a.lastSw=B.turn+1;return {t:'switch',i:k}}}
+    return BAI.chooseMove(BE.act('a'),BE.act('p'),diff);
+  }
+};
+
+/* ==========================================================================
+   COMBATE · datos (BD): fichas de Pokémon/movimientos con caché y selección de movimientos
+   Reutiliza getMon (caché global), ES.move (GraphQL de PokeAPI) y matchups/typeEff.
+   ========================================================================== */
+const BD={
+  lv:50,mv:{},
+  brief(slug){const e=ES.move[slug];return e?{slug,n:e.n,t:e.t||'normal',c:e.c||'physical',p:e.p||0,a:e.a===undefined?null:e.a,pp:e.pp||10}:{slug,n:pretty(slug),t:'normal',c:'physical',p:0,a:null,pp:10}},
+  async move(slug){
+    if(BD.mv[slug])return BD.mv[slug];
+    const r=await (await fetch(API+'move/'+slug)).json(),mt=r.meta||{},es=ES.move[slug];
+    return BD.mv[slug]={slug,n:es?es.n:pretty(slug),t:r.type.name,c:r.damage_class.name,p:r.power||0,a:r.accuracy,pp:r.pp||5,pr:r.priority||0,
+      ail:mt.ailment?mt.ailment.name:'none',ailC:mt.ailment_chance||0,crit:mt.crit_rate||0,drain:mt.drain||0,heal:mt.healing||0,flinch:mt.flinch_chance||0,
+      minH:mt.min_hits||1,maxH:mt.max_hits||1,sc:mt.stat_chance||0,st:(r.stat_changes||[]).map(x=>[x.stat.name,x.change]),tg:r.target?r.target.name:'selected-pokemon'};
+  },
+  stat:(b,L,hp)=>hp?Math.floor((2*b+31+21)*L/100)+L+10:Math.floor((2*b+31+21)*L/100)+5,
+  base(d){return Object.fromEntries(d.stats.map(x=>[x.stat.name,x.base_stat]))},
+  statsOf(id){const d=cache[id];if(!d)return null;const g=BD.base(d),L=BD.lv;return{hp:BD.stat(g.hp,L,1),atk:BD.stat(g.attack,L),def:BD.stat(g.defense,L),spa:BD.stat(g['special-attack'],L),spd:BD.stat(g['special-defense'],L),spe:BD.stat(g.speed,L)}},
+  async mon(id,slugs){
+    const d=await getMon(id),p=all[id-1],st=BD.statsOf(id);
+    const mv=(await Promise.all(slugs.slice(0,4).map(s=>BD.move(s)))).map(m=>({...m,max:m.pp}));
+    return{id,key:p.key,name:p.es,lv:BD.lv,types:p.types,st,maxHp:st.hp,hp:st.hp,mv,status:null,sl:0,tx:1,stg:{atk:0,def:0,spa:0,spd:0,spe:0},fainted:false,flinch:false};
+  },
+  /* Elige 4 movimientos coherentes: el mejor STAB de cada tipo propio + cobertura de tipos nuevos */
+  async pickMoves(id){
+    const d=await getMon(id),ty=all[id-1].types,g=BD.base(d),phys=g.attack>=g['special-attack'],learn=new Set(d.moves.map(m=>m.move.name));
+    const ok=m=>m&&m.c!=='status'&&m.p>=40&&!EXCL.has(m.slug)&&(m.a===null||m.a>=75);
+    let cand=[...learn].map(s=>ES.move[s]&&ES.move[s].t?{slug:s,...ES.move[s]}:null).filter(ok);
+    if(cand.length<4){
+      const pool=[...learn].filter(s=>!EXCL.has(s)).sort(()=>Math.random()-.5).slice(0,14);
+      cand=(await Promise.all(pool.map(s=>BD.move(s).catch(()=>null)))).filter(ok);
+    }
+    const sc=m=>m.p*((m.a||100)/100)*(ty.includes(m.t)?1.5:1)*(m.c===(phys?'physical':'special')?1:.65);
+    cand.sort((x,y)=>sc(y)-sc(x));
+    const pick=[],TL=Object.keys(TYPES);
+    ty.forEach(t=>{const m=cand.find(x=>x.t===t&&!pick.includes(x));if(m)pick.push(m)});
+    while(pick.length<4&&cand.length>pick.length){
+      const cov=new Set(pick.flatMap(m=>TL.filter(t=>typeEff(m.t,[t])>=2)));
+      pick.push(cand.find(x=>!pick.includes(x)&&!pick.some(p=>p.t===x.t)&&TL.some(t=>typeEff(x.t,[t])>=2&&!cov.has(t)))||cand.find(x=>!pick.includes(x)));
+    }
+    return pick.slice(0,4).map(m=>m.slug);
+  },
+  /* Equipo de la IA: candidatos aleatorios (rango de estadísticas según dificultad) + arquetipo + variedad de tipos y pocas debilidades comunes */
+  async plan(diff){
+    const ids=new Set();while(ids.size<16)ids.add(1+Math.floor(Math.random()*all.length));
+    const all16=(await Promise.all([...ids].map(async id=>{try{const d=await getMon(id),s=BD.base(d);return{id,s,bst:Object.values(s).reduce((a,b)=>a+b,0),ty:all[id-1].types,learn:new Set(d.moves.map(m=>m.move.name))}}catch(e){return null}}))).filter(Boolean);
+    const lo=diff==='easy'?300:420,hi=diff==='easy'?480:600;
+    let c=all16.filter(x=>x.bst>=lo&&x.bst<=hi);if(c.length<6)c=all16.slice();
+    const arche=['balanced','offense','defense','variety'][Math.floor(Math.random()*4)],team=[];
+    while(team.length<6&&c.length){
+      const sc=x=>{
+        const o=Math.max(x.s.attack,x.s['special-attack'])+x.s.speed,df=x.s.hp+x.s.defense+x.s['special-defense'];
+        let v=arche==='offense'?o*1.2:arche==='defense'?df:arche==='balanced'?x.bst*.6+o*.2+df*.2:x.bst*.4;
+        v+=x.ty.filter(t=>!team.some(m=>m.ty.includes(t))).length*45;
+        const mu=matchups(x.ty);v-=Object.keys(mu).filter(t=>mu[t]>1&&team.filter(m=>matchups(m.ty)[t]>1).length>=2).length*40;
+        return v+Math.random()*40;
+      };
+      const best=c.map(x=>[sc(x),x]).sort((a,b)=>b[0]-a[0])[0][1];
+      team.push(best);c.splice(c.indexOf(best),1);
+    }
+    return Promise.all(team.map(async x=>{
+      const slugs=await BD.pickMoves(x.id),phys=x.s.attack>=x.s['special-attack'];
+      if(diff!=='easy'&&Math.random()<.4){
+        const u=(phys?['swords-dance','bulk-up','dragon-dance','recover','roost','toxic','thunder-wave','will-o-wisp']:['nasty-plot','calm-mind','recover','roost','toxic','thunder-wave','spore']).find(s=>x.learn.has(s));
+        if(u&&slugs.length>=4)slugs[3]=u;
+      }
+      return{id:x.id,slugs};
+    }));
+  }
+};
+
+/* ==========================================================================
+   COMBATE · interfaz (UI): arena, HUD, animaciones, menús y registro
+   ========================================================================== */
+const EMO={normal:'⚪',fire:'🔥',water:'💧',electric:'⚡',grass:'🍃',ice:'❄️',fighting:'🥊',poison:'☠️',ground:'⛰️',flying:'🪽',psychic:'🔮',bug:'🐛',rock:'🪨',ghost:'👻',dragon:'🐉',dark:'🌑',steel:'⚙️',fairy:'✨'};
+const FXK={fire:'orb',water:'spray',grass:'spray',electric:'bolt',ice:'spray',poison:'spray',bug:'spray',psychic:'ring',ghost:'ring',dark:'ring',fairy:'ring',dragon:'ring',normal:'burst',fighting:'burst',flying:'burst',steel:'burst',rock:'quake',ground:'quake'};
+const BASE='translate(-50%,-100%)';
+const UI={
+  shown:{p:0,a:0},_res:null,
+  ms:x=>x*(B.fast?.45:1),
+  el:s=>$(s==='p'?'b-sp':'b-se'),
+  wr:s=>UI.el(s).parentElement,
+  hudEl:s=>$(s==='p'?'b-hp':'b-he'),
+  anim(el,kf,o){return el.animate(kf,{...o,duration:UI.ms(o.duration),delay:UI.ms(o.delay||0)}).finished.catch(()=>{})},
+  pos(s){const a=$('ar').getBoundingClientRect(),r=UI.el(s).getBoundingClientRect();return{x:r.left-a.left+r.width/2,y:r.top-a.top+r.height/2}},
+
+  open(){
+    $('bt-prep').hidden=true;$('bt-game').hidden=false;$('bt-res').hidden=true;$('bt-log').innerHTML='';
+    ['p','a'].forEach(s=>UI.wr(s).style.opacity=0);
+    window.scrollTo({top:0});
+  },
+  /* --- HUD y barras de PS --- */
+  hud(s){
+    const m=BE.act(s),h=UI.hudEl(s);
+    h.querySelector('.nm').textContent=BE.nm(m,s);h.querySelector('.lv').textContent='Nv. '+m.lv;
+    const st=h.querySelector('.stx');st.textContent=m.status?STL[m.status]:'';st.className='stx'+(m.status?' st-'+m.status:'');
+    h.querySelector('.pips').innerHTML=B[s].team.map(x=>`<i class="${x.fainted?'ko':'ok'}"></i>`).join('');
+    UI.paintHp(s,UI.shown[s]);
+  },
+  paintHp(s,v){
+    const m=BE.act(s),h=UI.hudEl(s),pct=Math.max(0,v/m.maxHp*100),bar=h.querySelector('.hpb i');
+    bar.style.width=pct+'%';bar.className=pct>50?'':pct>20?'mid':'lo';
+    h.querySelector('.ht').textContent=s==='p'?`${Math.ceil(v)}/${m.maxHp} PS`:`${Math.ceil(pct)}%`;
+  },
+  hp(s){
+    const m=BE.act(s),from=UI.shown[s],to=m.hp,dur=UI.ms(Math.min(1000,300+Math.abs(from-to)/m.maxHp*900)),t0=performance.now();
+    return new Promise(r=>{const f=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);UI.paintHp(s,from+(to-from)*e);if(k<1)requestAnimationFrame(f);else{UI.shown[s]=to;r()}};requestAnimationFrame(f)});
+  },
+  /* --- sprites --- */
+  sprite(s,m){
+    const el=UI.el(s),p=all[m.id-1],front=spriteChain(p,false).map(x=>({...x,f:1}));
+    const ch=s==='p'?[{u:PS+'gen5ani-back/'+p.key+'.gif',a:1},{u:PS+'gen5-back/'+p.key+'.png',a:0},{u:SPR+'back/'+m.id+'.png',a:0},...front]:front;
+    el.classList.remove('flip','idle');el.style.width=el.style.height='';let i=0;
+    const box=$('ar').clientWidth*(s==='p'?.27:.2);
+    el.onload=()=>{
+      const w=el.naturalWidth||1,h=el.naturalHeight||1,k=Math.max(1,Math.floor(box/Math.max(w,h)));
+      el.style.width=w*k+'px';el.style.height=h*k+'px';el.style.setProperty('--k',k);
+      el.classList.toggle('idle',!ch[i].a);el.classList.toggle('flip',s==='p'&&!!ch[i].f);
+    };
+    el.onerror=()=>{if(++i<ch.length)el.src=ch[i].u};
+    el.src=ch[0].u;
+  },
+  switchIn(s,m){UI.shown[s]=m.hp;UI.wr(s).style.opacity=0;UI.sprite(s,m);UI.hud(s)},
+  async enter(s){
+    const w=UI.wr(s);w.style.opacity=1;
+    await UI.anim(w,[{transform:BASE+' translateY(-70px) scale(.3)',opacity:0,filter:'brightness(3)'},{transform:BASE+' translateY(6px) scale(1.05)',opacity:1,filter:'brightness(1.4)',offset:.7},{transform:BASE,opacity:1,filter:'none'}],{duration:520,easing:'cubic-bezier(.2,.8,.2,1)'});
+  },
+  async leave(s){const w=UI.wr(s);await UI.anim(w,[{transform:BASE,opacity:1,filter:'none'},{transform:BASE+` translate(${s==='p'?-70:70}px,10px) scale(.4)`,opacity:0,filter:'brightness(3)'}],{duration:380,easing:'ease-in'});w.style.opacity=0},
+  async faint(s){const w=UI.wr(s);await UI.anim(w,[{transform:BASE,opacity:1},{transform:BASE+' translateY(50px)',opacity:0}],{duration:600,easing:'ease-in'});w.style.opacity=0;UI.hud(s)},
+  /* --- efectos --- */
+  hitAnim(s){return UI.anim(UI.wr(s),[{transform:BASE,filter:'none'},{transform:BASE+' translateX(-12px)',filter:'brightness(2.6)'},{transform:BASE+' translateX(9px)'},{transform:BASE+' translateX(-5px)',filter:'brightness(1.6)'},{transform:BASE,filter:'none'}],{duration:400})},
+  lunge(s){const x=s==='p'?70:-60,y=s==='p'?-45:35;return UI.anim(UI.wr(s),[{transform:BASE},{transform:BASE+` translate(${x}px,${y}px)`,offset:.45},{transform:BASE}],{duration:340,easing:'ease-in-out'})},
+  dodge(s){return UI.anim(UI.wr(s),[{transform:BASE,opacity:1},{transform:BASE+` translateX(${s==='p'?-45:45}px)`,opacity:.35},{transform:BASE,opacity:1}],{duration:420})},
+  async miss(s){await UI.dodge(BE.other(s))},
+  flash(col,op){const f=$('b-fl');f.style.background=col;UI.anim(f,[{opacity:0},{opacity:op},{opacity:0}],{duration:260})},
+  shake(){UI.anim($('ar'),[{transform:'none'},{transform:'translate(-7px,4px)'},{transform:'translate(7px,-4px)'},{transform:'translate(-4px,2px)'},{transform:'none'}],{duration:300,iterations:2})},
+  pop(s,text,cls,dy=0){
+    const p=UI.pos(s),e=document.createElement('div');e.className='pop '+cls;e.textContent=text;
+    e.style.left=p.x+'px';e.style.top=(p.y-50+dy)+'px';$('ar').appendChild(e);
+    UI.anim(e,[{opacity:0,transform:'translate(-50%,-30%) scale(.7)'},{opacity:1,transform:'translate(-50%,-70%) scale(1.05)',offset:.25},{opacity:1,transform:'translate(-50%,-90%)',offset:.75},{opacity:0,transform:'translate(-50%,-130%)'}],{duration:1100}).then(()=>e.remove());
+    return Promise.resolve();
+  },
+  async attack(s,mv){
+    const col=tc(mv.t),o=BE.other(s);let k=FXK[mv.t]||'burst';
+    if(mv.c==='status'){await UI.fx('ring',col,s,s);return}
+    if(mv.c==='physical'){await UI.lunge(s);if(k!=='quake'&&k!=='bolt')k='burst'}
+    else if(k==='burst')k='orb';
+    await UI.fx(k,col,s,o);
+  },
+  async fx(kind,col,s,o){
+    const a=UI.pos(s),d=UI.pos(o),L=$('b-fx');
+    const mk=(w,h,bg,extra)=>{const e=document.createElement('div');e.className='fxe';e.style.cssText=`width:${w}px;height:${h}px;margin:${-h/2}px 0 0 ${-w/2}px;background:${bg};${extra||''}`;L.appendChild(e);return e};
+    const go=(e,kf,dur,delay)=>UI.anim(e,kf.map(x=>({...x})),{duration:dur,delay,easing:'ease-in',fill:'both'}).then(()=>e.remove());
+    const T=(p,sc)=>`translate(${p.x}px,${p.y}px) scale(${sc})`,RND='border-radius:50%;';
+    if(kind==='orb'||kind==='spray'){
+      const n=kind==='orb'?1:5,sz=kind==='orb'?42:16,jobs=[];
+      for(let i=0;i<n;i++){
+        const e=mk(sz,sz,`radial-gradient(circle,#fff 0,${col} 55%,transparent 72%)`,RND),j={x:d.x+(Math.random()-.5)*(n>1?60:0),y:d.y+(Math.random()-.5)*(n>1?50:0)};
+        jobs.push(go(e,[{transform:T(a,.5),opacity:1},{transform:T(j,1.2),opacity:1,offset:.75},{transform:T(j,2.4),opacity:0}],400,i*60));
+      }
+      await Promise.all(jobs);UI.hitGlow(d,col);
+    }else if(kind==='bolt'){
+      UI.flash(col,.45);
+      const e=mk(90,160,col,'clip-path:polygon(55% 0,18% 56%,44% 56%,28% 100%,86% 38%,56% 38%);filter:drop-shadow(0 0 10px '+col+')'),p={x:d.x,y:d.y-30};
+      await go(e,[{transform:T(p,.6),opacity:0},{transform:T(p,1.2),opacity:1,offset:.25},{transform:T(p,1),opacity:.2,offset:.5},{transform:T(p,1.25),opacity:1,offset:.7},{transform:T(p,1.5),opacity:0}],520);
+    }else if(kind==='ring'){
+      const jobs=[0,1,2].map(i=>go(mk(36,36,'transparent',RND+`border:4px solid ${col};box-shadow:0 0 14px ${col}`),[{transform:T(d,.6),opacity:.95},{transform:T(d,5),opacity:0}],620,i*120));
+      await Promise.all(jobs);
+    }else{
+      if(kind==='quake')UI.shake();
+      await UI.hitGlow(d,col,kind==='quake'?3:2.4);
+    }
+  },
+  hitGlow(d,col,sc){
+    const L=$('b-fx'),e=document.createElement('div');e.className='fxe';
+    e.style.cssText=`width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;background:radial-gradient(circle,#fff 0,${col} 38%,transparent 70%)`;L.appendChild(e);
+    return UI.anim(e,[{transform:`translate(${d.x}px,${d.y}px) scale(.3)`,opacity:1},{transform:`translate(${d.x}px,${d.y}px) scale(${sc||2.2})`,opacity:0}],{duration:380,easing:'ease-out'}).then(()=>e.remove());
+  },
+  async hit(o,i){
+    const m=BE.act(o);
+    UI.hitAnim(o);
+    if(i.crit){UI.flash('#fff',.5);UI.pop(o,'¡Golpe crítico!','pop-crit',-34);UI.log('¡Golpe crítico!','crit')}
+    if(i.eff>1){UI.pop(o,'¡Súper eficaz!','pop-good');UI.log('¡Es súper eficaz!','good')}
+    else if(i.eff<1){UI.pop(o,'No muy eficaz…','pop-bad');UI.log('No es muy eficaz...','bad')}
+    await sleep(170);await UI.hp(o);
+    UI.log(`${BE.nm(m,o)} perdió ${i.dmg} PS.`,'dmg');
+  },
+  /* --- mensajes y registro --- */
+  log(t,c){const l=$('bt-log'),d=document.createElement('div');d.className='ln '+(c||'');d.textContent=t;l.appendChild(d);l.scrollTop=l.scrollHeight},
+  turnHeader(n){$('b-turn').textContent='Turno '+n;const l=$('bt-log'),d=document.createElement('div');d.className='lt';d.textContent='Turno '+n;l.appendChild(d);l.scrollTop=l.scrollHeight},
+  async say(t){UI.log(t);$('bt-ctl').innerHTML=`<div class="msg">${esc(t)}</div>`;await sleep(720)},
+  lock(){$('bt-ctl').innerHTML='<div class="msg">…</div>'},
+  /* --- menús: main / moves / switch --- */
+  choose(){UI.view('main');return new Promise(r=>UI._res=r)},
+  forceSwitch(){UI.view('switch',true);return new Promise(r=>UI._res=r)},
+  pick(a){if(!UI._res)return;const r=UI._res;UI._res=null;r(a)},
+  view(k,forced){
+    const me=BE.act('p'),foe=BE.act('a'),c=$('bt-ctl');
+    if(k==='main'){
+      const can=BE.alive('p').some(i=>i!==B.p.i);
+      c.innerHTML=`<div class="menu"><button class="bm" onclick="UI.view('moves')"><span>⚔️</span>Ataques</button><button class="bm" onclick="UI.view('switch')" ${can?'':'disabled'}><span>🔄</span>Cambiar</button></div><button class="lnk" onclick="if(confirm('¿Rendirte?'))UI.pick({t:'resign'})">🏳️ Rendirse</button>`;
+    }else if(k==='moves'){
+      const usable=me.mv.some(m=>m.pp>0);
+      const cards=usable?me.mv.map((m,i)=>{
+        const ef=m.c==='status'?null:typeEff(m.t,foe.types),chip=ef===null||ef===1?'':`<i class="ef ${ef>1?'good':ef===0?'no':'bad'}">×${ef===.5?'½':ef===.25?'¼':ef}</i>`;
+        return `<button class="mc" style="--t:${tc(m.t)}" onclick="UI.pick({t:'move',i:${i}})" ${m.pp<=0?'disabled':''}><span class="mico2">${EMO[m.t]||'⚪'}</span><span><b>${esc(m.n)}</b><small>${CAT[m.c]} · ${tn(m.t)}</small></span>${chip}<span class="mm">${m.c==='status'?'Estado':'Pot. '+m.p} · Prec. ${m.a||'—'} · PP ${m.pp}/${m.max}</span></button>`}).join('')
+        :`<button class="mc" style="--t:#A8A878" onclick="UI.pick({t:'move',i:-1})"><span class="mico2">💢</span><span><b>Forcejeo</b><small>Sin PP restantes</small></span><span class="mm">Pot. 50 · te hace daño de retroceso</span></button>`;
+      c.innerHTML=`<div class="mvg">${cards}</div><button class="lnk" onclick="UI.view('main')">← Volver</button>`;
+    }else{
+      const cards=B.p.team.map((m,i)=>{
+        const dis=m.fainted||(i===B.p.i&&!forced),pct=m.hp/m.maxHp*100;
+        return `<button class="sw" onclick="UI.pick(${forced?i:`{t:'switch',i:${i}}`})" ${dis?'disabled':''}><img src="${mini(m.id)}" alt=""><span style="flex:1"><b>${m.name}</b><small>Nv. ${m.lv}${m.fainted?' · Debilitado':m.status?' · '+STL[m.status]:''}</small><div class="hpb"><i class="${pct>50?'':pct>20?'mid':'lo'}" style="width:${pct}%"></i></div></span></button>`}).join('');
+      c.innerHTML=`${forced?'<div class="msg" style="padding:6px 0 14px">Elige tu próximo Pokémon.</div>':''}<div class="swg">${cards}</div>${forced?'':'<button class="lnk" onclick="UI.view(\'main\')">← Volver</button>'}`;
+    }
+  },
+  async result(w){
+    await sleep(600);
+    const win=w==='p',again='<button class="btn" onclick="btAgain()">Volver a combatir</button>',menu='<button class="btn alt" onclick="btMenu()">Volver al menú</button>';
+    $('bt-res').innerHTML=`<div class="rc"><div class="big">${win?'🏆':'💀'}</div><h2>${win?'VICTORIA':'DERROTA'}</h2><p>${win?'Has derrotado al entrenador.':B.resigned?'Te has rendido.':'Todos tus Pokémon se han debilitado.'}</p><div class="row2">${win?menu+again:again+menu}</div></div>`;
+    $('bt-res').hidden=false;
+  }
+};
+
+/* ==========================================================================
+   COMBATE · pantalla de preparación, equipo del jugador y bucle de partida
+   ========================================================================== */
+const BMODES=[
+  {id:'ai',icon:'🤖',name:'Combate contra IA',desc:'Lucha contra un entrenador controlado por la IA.',ready:true},
+  {id:'pvp',icon:'🌐',name:'PvP online',desc:'Próximamente: combates contra otros jugadores.',ready:false}
+];
+const BDIFF=[
+  {id:'easy',icon:'🟢',name:'Fácil',desc:'La IA toma decisiones sencillas y comete errores.'},
+  {id:'normal',icon:'🟡',name:'Normal',desc:'Elige movimientos eficaces y cambia de Pokémon cuando le conviene.'},
+  {id:'hard',icon:'🔴',name:'Difícil',desc:'Analiza tipos, daño, velocidad y PS para decidir cada turno.'}
+];
+const BT={diff:'normal',team:Array(6).fill(null)},BK='neggydex_battle_v1';
+function btInit(){try{const d=JSON.parse(localStorage.getItem(BK)||'null');if(d&&d.team&&d.team.length===6){BT.team=d.team;BT.diff=d.diff||'normal'}}catch(e){}btRender()}
+function btSlot(s,i){
+  if(!s)return `<div class="slot empty"><div class="plus">＋</div><div class="sno">Pokémon ${i+1}</div><input id="bp${i}" placeholder="Buscar Pokémon…" autocomplete="off"></div>`;
+  const p=all[s.id-1],ty=p.types,c1=tc(ty[0]||'normal'),c2=ty[1]?tc(ty[1]):tl(ty[0]||'normal'),st=BD.statsOf(s.id);
+  const stats=st?[['PS',st.hp],['Atq',st.atk],['Def',st.def],['AtE',st.spa],['DeE',st.spd],['Vel',st.spe]].map(([l,v])=>`<div><span>${l}</span><b>${v}</b></div>`).join(''):'';
+  const mv=s.mv.map((m,j)=>`<div class="mr" style="--t:${tc(m.t)}"><span class="mi">${EMO[m.t]||'⚪'}</span><span class="mn"><b>${esc(m.n)}</b><small>${CAT[m.c]||''} · ${tn(m.t)} · ${m.c==='status'?'Estado':'Pot. '+(m.p||'—')} · Prec. ${m.a||'—'} · PP ${m.pp}</small></span><button onclick="btRmMove(${i},${j})" aria-label="Quitar">×</button></div>`).join('');
+  return `<div class="slot" style="--c1:${c1};--c2:${c2}"><span class="sn2">${i+1}</span><button class="rm" onclick="btRm(${i})" aria-label="Quitar Pokémon">×</button>
+    <div class="top"><div class="pic"><img data-id="${s.id}" alt=""></div><div class="info"><div class="nm">${p.es} <small class="lvb">Nv. ${BD.lv}</small></div><div class="types" style="justify-content:flex-start">${ty.map(badge).join('')}</div><input id="bp${i}" class="chg" placeholder="Cambiar Pokémon…" autocomplete="off"></div></div>
+    <div class="bst">${stats}</div>
+    <div class="mh2">Movimientos <b>${s.mv.length}/4</b></div><div class="mlist">${mv}</div>
+    ${s.mv.length<4?`<input id="bm${i}" class="addm" placeholder="＋ Añadir movimiento…" autocomplete="off">`:'<div class="full">Movimientos completos</div>'}</div>`;
+}
+function btRender(){
+  if(!$('bt-slots'))return;
+  $('bt-modes').innerHTML=BMODES.map(m=>`<div class="md ${m.ready?'on':'off'}"><span class="mico">${m.icon}</span><div><b>${m.name}</b><p>${m.desc}</p></div>${m.ready?'':'<em>Pronto</em>'}</div>`).join('');
+  $('bt-diffs').innerHTML=BDIFF.map(d=>`<button class="dc ${BT.diff===d.id?'on':''}" onclick="BT.diff='${d.id}';btRender()"><span>${d.icon}</span><b>${d.name}</b><small>${d.desc}</small></button>`).join('');
+  $('bt-slots').innerHTML=BT.team.map(btSlot).join('');
+  $('bt-imp').innerHTML='<option value="">Importar de Equipos…</option>'+(TEAM.m.some(Boolean)?'<option value="cur">Equipo en edición</option>':'')+TEAMS.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('');
+  BT.team.forEach((s,i)=>{
+    if(!$('bp'+i))return;
+    attach($('bp'+i),q=>rank(all,q,60),monRow,m=>m.es,async m=>{try{await getMon(m.id);BT.team[i]={id:m.id,mv:(await BD.pickMoves(m.id)).map(x=>BD.brief(x))};btRender()}catch(e){toast('No se pudo cargar ese Pokémon.')}});
+    if(s&&$('bm'+i))attach($('bm'+i),q=>rank(MOVESB,q,3000),mvRow,m=>m.n,m=>{if(s.mv.length<4&&!s.mv.some(x=>x.slug===m.slug)){s.mv.push(BD.brief(m.slug));btRender()}});
+  });
+  document.querySelectorAll('#bt-slots .pic img').forEach(im=>animInto(im,+im.dataset.id,false,112));
+  try{localStorage.setItem(BK,JSON.stringify(BT))}catch(e){}
+}
+function btRm(i){BT.team[i]=null;btRender()}
+function btRmMove(i,j){BT.team[i].mv.splice(j,1);btRender()}
+function btClear(){BT.team=Array(6).fill(null);btRender()}
+async function btImport(v){
+  const src=v==='cur'?TEAM.m:(TEAMS.find(t=>t.id===v)||{}).m;if(!src)return;
+  BT.team=Array(6).fill(null).map((_,i)=>src[i]?{id:src[i].id,mv:(src[i].mv||[]).filter(m=>!EXCL.has(m.slug)).map(m=>BD.brief(m.slug))}:null);
+  try{await Promise.all(BT.team.map(async s=>{if(!s)return;await getMon(s.id);if(!s.mv.length)s.mv=(await BD.pickMoves(s.id)).map(x=>BD.brief(x))}))}catch(e){}
+  btRender();
+}
+async function btRandom(){
+  $('bt-err').textContent='Creando equipo aleatorio…';
+  try{const plan=await BD.plan('normal');BT.team=Array(6).fill(null).map((_,i)=>plan[i]?{id:plan[i].id,mv:plan[i].slugs.map(x=>BD.brief(x))}:null);$('bt-err').textContent=''}
+  catch(e){$('bt-err').textContent='No se pudo crear el equipo (sin conexión con PokeAPI).'}
+  btRender();
+}
+function btMenu(){$('bt-res').hidden=true;$('bt-game').hidden=true;$('bt-prep').hidden=false;window.scrollTo({top:0})}
+function btAgain(){$('bt-res').hidden=true;btStart()}
+async function btStart(){
+  const team=BT.team.filter(s=>s&&s.mv.length);
+  if(!team.length){$('bt-err').textContent='Añade al menos un Pokémon con un movimiento.';return}
+  const go=$('bt-go');go.disabled=true;go.textContent='Preparando combate…';$('bt-err').textContent='';
+  try{
+    const [pt,plan]=await Promise.all([Promise.all(team.map(s=>BD.mon(s.id,s.mv.map(m=>m.slug)))),BD.plan(BT.diff)]);
+    const at=await Promise.all(plan.map(x=>BD.mon(x.id,x.slugs)));
+    B.diff=BT.diff;B.p={team:pt,i:0};B.a={team:at,i:0,lastSw:-9};B.turn=0;B.over=null;B.busy=false;B.resigned=false;
+    go.disabled=false;go.textContent='⚔️ Comenzar combate';
+    await btLoop();return;
+  }catch(e){console.error(e);$('bt-err').textContent='No se pudo iniciar el combate (¿sin conexión con PokeAPI?).';btMenu()}
+  go.disabled=false;go.textContent='⚔️ Comenzar combate';
+}
+async function btLoop(){
+  UI.open();
+  UI.switchIn('a',BE.act('a'));UI.switchIn('p',BE.act('p'));
+  await UI.say('¡El entrenador rival quiere combatir!');
+  await UI.say(`El entrenador rival envió a ${BE.act('a').name}.`);await UI.enter('a');
+  await UI.say(`¡Adelante, ${BE.act('p').name}!`);await UI.enter('p');
+  while(!B.over&&B.turn<120){
+    UI.turnHeader(B.turn+1);
+    const pa=await UI.choose();
+    B.busy=true;UI.lock();
+    if(pa.t==='resign'){B.resigned=true;B.over='a';break}
+    await BE.turn(pa,BAI.choose(B.diff));
+    B.busy=false;
+  }
+  if(!B.over)B.over=BE.hpPct('p')>=BE.hpPct('a')?'p':'a';
+  await UI.result(B.over);
 }
 
 init();
