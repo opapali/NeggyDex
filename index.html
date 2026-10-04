@@ -688,9 +688,9 @@ header{background:rgba(21,18,28,.72);border-bottom:1px solid var(--line)}
 .wsug button:hover{background:var(--accent);transform:translateY(-2px)}.wsug span{color:var(--muted);font-size:.85rem}
 .whints,.ghint{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:780px;margin:0 auto 16px}
 .ghint{grid-template-columns:repeat(3,1fr);margin:0 0 14px}
-.hint{display:grid;gap:4px;justify-items:center;align-content:center;min-height:92px;padding:10px;border-radius:20px;background:#ffffff08;border:1px dashed #ffffff26;text-align:center;color:var(--muted);font-size:.8rem}
-.hint small{font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.66rem}
-.hint.on{background:linear-gradient(160deg,#ffffff10,#ffffff06);border:1px solid #ffffff22;color:var(--text);animation:pop .5s both}.hint.on b{font-size:1.1rem}.hint em{font-style:normal;color:var(--muted)}
+.ghc{display:grid;gap:4px;justify-items:center;align-content:center;min-height:92px;padding:10px;border-radius:20px;background:#ffffff08;border:1px dashed #ffffff26;text-align:center;color:var(--muted);font-size:.8rem}
+.ghc small{font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.66rem}
+.ghc.on{background:linear-gradient(160deg,#ffffff10,#ffffff06);border:1px solid #ffffff22;color:var(--text);animation:pop .5s both}.ghc.on b{font-size:1.1rem}.ghc em{font-style:normal;color:var(--muted)}
 .bigl{font-size:2rem!important}.sil{width:96px;height:96px;image-rendering:pixelated;filter:brightness(0) drop-shadow(0 0 6px #ffffff66)}
 .wkb{display:grid;gap:7px;max-width:660px;margin:0 auto}.kr{display:flex;gap:6px;justify-content:center}
 .kk{flex:1;max-width:50px;height:54px;border-radius:13px;border:0;background:#ffffff14;color:var(--text);font-weight:800;text-transform:uppercase;cursor:pointer;transition:background .25s,transform .1s}
@@ -714,6 +714,66 @@ header{background:rgba(21,18,28,.72);border-bottom:1px solid var(--line)}
 @keyframes shakeX{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
 @media(max-width:800px){.gcards{grid-template-columns:1fr}.whints{grid-template-columns:repeat(2,1fr)}.ghint{grid-template-columns:1fr}.prof{height:96px}.kk{height:48px}}
 .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+
+/* ---- Correcciones visuales ---- */
+.search{max-width:1100px;padding:6px 28px 0;margin:-6px auto 0;overflow:hidden;max-height:320px;transition:max-height .45s cubic-bezier(.2,.8,.2,1),opacity .3s,padding .3s,margin .3s}
+.search .sbox{max-width:820px;margin:0 auto}
+header.compact .search{max-height:0;opacity:0;padding-top:0;margin-top:-8px;pointer-events:none}
+header.compact .bar{padding-top:8px;padding-bottom:8px}
+.bar{transition:padding .3s}
+.chips{padding:2px 24px 6px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22px,#000 calc(100% - 22px),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 22px,#000 calc(100% - 22px),transparent 100%)}
+.gens{margin-top:10px}.chips:not(.gens){margin-top:6px}
+.wr{--t:clamp(20px,calc((100cqw - (var(--n) - 1) * 8px) / var(--n)),64px)}
+.whints{grid-template-columns:repeat(3,1fr)}
+.bubble.say{animation:bubbleIn .35s cubic-bezier(.2,.8,.2,1) both}
+@keyframes bubbleIn{from{opacity:0;transform:translateY(6px)}}
+.gtok img{width:30px;height:30px}
+.prof{height:144px}
+.endc .cf{animation-name:fallBox}
+@keyframes fallBox{to{transform:translateY(var(--fh,320px)) rotate(540deg)}}
+.tabs{overflow:visible}
+.tr{height:288px}
+@media(max-height:780px){.tr{height:192px}}
+@media(max-width:900px){.tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}}
+@media(max-width:800px){.prof{height:96px}.tr{height:144px}.pkw{min-height:110px}}
+
+.search{margin:0 auto 20px;padding:6px 28px 0;max-height:none;overflow:visible;transition:none}
+.bar{flex-wrap:nowrap}
+@media(max-width:700px){.bar{flex-wrap:wrap}}
+
+.gc .ar{position:static;margin-left:3px;font-size:.72rem;font-style:normal}
+.gr{grid-template-columns:140px repeat(11,minmax(92px,1fr))}.grows{min-width:1230px}
+.gc b{line-height:1.15}
+
+/* ---- Navegación inferior en pantallas estrechas + mejoras de juegos ---- */
+.tab .ti{margin-right:7px}.tab .tl{white-space:nowrap}
+@media(max-width:1100px){
+  header{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(21,18,28,.94)}
+  .tabs{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;width:auto;max-width:none;margin:0;overflow:visible;justify-content:space-between;gap:2px;padding:6px;background:rgba(31,27,43,.94);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:26px;box-shadow:0 16px 44px #000b}
+  .tab{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px 8px;font-size:.68rem;border-radius:20px}
+  .tab .ti{margin:0;font-size:1.3rem}.tab .tx{display:none}
+  .tind{border-radius:20px;top:6px;bottom:6px}
+  main{padding-bottom:120px}
+  .top{bottom:100px}.toast{bottom:104px}
+}
+.gpool{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+.gpool>span{color:var(--muted);font-size:.85rem;font-weight:700;margin-right:6px}
+.gpc{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:6px 16px 6px 8px;font-size:.82rem;cursor:pointer;transition:background .25s,color .25s,transform .2s}
+.gpc b{display:grid;place-items:center;min-width:26px;height:22px;padding:0 6px;border-radius:999px;background:#ffffff14;font-size:.72rem;color:var(--text)}
+.gpc:hover{color:var(--text);transform:translateY(-2px)}
+.gpc.on{background:linear-gradient(135deg,#3fbf6f,#2d9f5c);color:#fff;border-color:transparent;box-shadow:0 6px 16px #3fbf6f44}.gpc.on b{background:#ffffff30;color:#fff}
+.gp{position:sticky;left:0;z-index:2;box-shadow:8px 0 14px -6px #000a}
+.gsd{width:min(470px,92vw)}.gsd h2{margin-bottom:6px}
+.gsn{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.gsn div{background:#ffffff0a;border-radius:16px;padding:12px 4px}.gsn b{display:block;font-size:1.5rem}.gsn small{color:var(--muted);font-size:.68rem;font-weight:700}
+.gdt{color:var(--muted);font-size:.8rem;margin:0 0 10px!important;text-align:left}
+.gdist{display:grid;gap:6px;margin-bottom:22px;text-align:left}
+.gdr{display:grid;grid-template-columns:46px 1fr;gap:8px;align-items:center;font-size:.8rem;color:var(--muted);font-weight:700}
+.gdb{background:#ffffff0d;border-radius:8px;overflow:hidden}
+.gdb i{display:block;min-height:22px;border-radius:8px;background:linear-gradient(90deg,#3fbf6f,#2d9f5c);color:#fff;font-style:normal;font-weight:800;padding:2px 8px;text-align:right;animation:growW .7s both}
+@media(max-width:700px){.gsn{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.tab{font-size:.6rem;letter-spacing:-.01em}.tab .ti{font-size:1.2rem}}
+.gdb{min-height:22px}
 </style>
 </head>
 <body>
@@ -724,13 +784,19 @@ header{background:rgba(21,18,28,.72);border-bottom:1px solid var(--line)}
   <div class="bar">
     <div class="logo" id="logo" role="button" tabindex="0" title="Ir al inicio"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lgT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9a8f"/><stop offset=".55" stop-color="#ff4d5e"/><stop offset="1" stop-color="#b5309a"/></linearGradient><linearGradient id="lgB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#c7cbe6"/></linearGradient><linearGradient id="lgR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset=".5" stop-color="#ff7a6b"/><stop offset="1" stop-color="#6890f0"/></linearGradient></defs><path d="M4 32a28 28 0 0 1 56 0z" fill="url(#lgT)"/><path d="M4 32a28 28 0 0 0 56 0z" fill="url(#lgB)"/><rect x="4" y="29" width="56" height="6" fill="#161927"/><circle cx="32" cy="32" r="29" fill="none" stroke="url(#lgR)" stroke-width="4"/><circle cx="32" cy="32" r="13" fill="#161927"/><circle cx="32" cy="32" r="10" fill="#fff"/><path d="M27 38V26l10 12V26" fill="none" stroke="#161927" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 22a23 23 0 0 1 13-11" stroke="#fff" stroke-opacity=".6" stroke-width="3" stroke-linecap="round" fill="none"/></svg><span class="wm"><span class="t"><span class="n1">Neggy</span><b>Dex</b></span><small>Pokédex · Calculadora</small></span></div>
     <nav class="tabs"><span class="tind" id="tind"></span>
-      <button class="tab on" id="t-dex">Pokédex</button>
-      <button class="tab" id="t-calc">Calculadora de daño</button>
-      <button class="tab" id="t-team">Equipos</button>
-      <button class="tab" id="t-battle">⚔️ Combate</button>
-      <button class="tab" id="t-games">🎮 Juegos</button>
+      <button class="tab on" id="t-dex"><span class="ti">📖</span><span class="tl">Pokédex</span></button>
+      <button class="tab" id="t-calc"><span class="ti">🧮</span><span class="tl">Calculadora<span class="tx"> de daño</span></span></button>
+      <button class="tab" id="t-team"><span class="ti">🛡️</span><span class="tl">Equipos</span></button>
+      <button class="tab" id="t-battle"><span class="ti">⚔️</span><span class="tl">Combate</span></button>
+      <button class="tab" id="t-games"><span class="ti">🎮</span><span class="tl">Juegos</span></button>
     </nav>
-    <div class="search" id="sb">
+  </div>
+</header>
+
+
+<main>
+<section class="view on" id="v-dex">
+  <div class="search" id="sb">
       <div class="sbox">
         <svg class="sicon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>
         <input id="q" type="search" placeholder="Busca por nombre o número: pikachu, 25, charizard…" autocomplete="off" spellcheck="false" aria-label="Buscar Pokémon">
@@ -740,12 +806,6 @@ header{background:rgba(21,18,28,.72);border-bottom:1px solid var(--line)}
       <div class="chips gens" id="gens"></div>
       <div class="chips" id="chips"></div>
     </div>
-  </div>
-</header>
-
-
-<main>
-<section class="view on" id="v-dex">
   <div class="hero"><div class="hmsg" id="hero"></div><div class="daily" id="daily"></div></div>
   <div class="count" id="count"></div>
   <div class="grid" id="grid"></div>
@@ -861,6 +921,7 @@ header{background:rgba(21,18,28,.72);border-bottom:1px solid var(--line)}
   <div class="thead"><div><h2>🎮 Juegos</h2><p class="hint" style="margin:0">Un descanso entre combates: pon a prueba lo que sabes de los 1025 Pokémon.</p></div></div>
   <div id="gm-home"></div>
   <div id="gm-area" hidden></div>
+  <div class="bres" id="gm-dlg" hidden onclick="if(event.target===this)this.hidden=true"></div>
 </section>
 </main>
 
@@ -942,6 +1003,7 @@ function view(v){
   window.scrollTo(0,0);tabInd();
 }
 $('t-dex').onclick=()=>view('dex');$('t-calc').onclick=()=>view('calc');$('t-team').onclick=()=>view('team');
+document.querySelectorAll('.chips').forEach(c=>c.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){c.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false}));
 /* Indicador deslizante de pestañas */
 function tabInd(){const on=document.querySelector('.tab.on'),ind=$('tind');if(!on||!ind||!on.offsetWidth)return;ind.style.width=on.offsetWidth+'px';ind.style.transform='translateX('+on.offsetLeft+'px)'}
 addEventListener('resize',tabInd);
@@ -979,7 +1041,7 @@ $('grid').addEventListener('mousemove',e=>{const c=e.target.closest('.card');if(
 $('grid').addEventListener('mouseout',e=>{const c=e.target.closest('.card');if(c&&!c.contains(e.relatedTarget)){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}});$('t-battle').onclick=()=>view('battle');$('t-games').onclick=()=>{view('games');if(!GM.mode)gHome()};
 let last=0;
 addEventListener('scroll',()=>{
-  const y=scrollY;$('hd').classList.toggle('hide',y>last&&y>150);last=y;
+  const y=scrollY;last=y;
   $('top').classList.toggle('show',y>700);const H=document.documentElement.scrollHeight-innerHeight;$('prog').style.transform='scaleX('+(H>0?y/H:0)+')';
 },{passive:true});
 $('top').onclick=()=>scrollTo({top:0,behavior:'smooth'});
@@ -1064,7 +1126,7 @@ const qi=$('q'),qc=$('qclear');
 qi.addEventListener('input',()=>{qc.hidden=!qi.value});
 qc.onclick=()=>{qi.value='';qc.hidden=true;applyFilter();qi.focus()};
 qi.addEventListener('keydown',e=>{if(e.key==='Escape'&&qi.value){qi.value='';qc.hidden=true;applyFilter()}});
-addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)&&$('v-dex').classList.contains('on')){e.preventDefault();qi.focus()}});
+addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)&&$('v-dex').classList.contains('on')){e.preventDefault();scrollTo({top:0,behavior:'smooth'});qi.focus({preventScroll:true})}});
 $('grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openModal(+c.dataset.id)});
 $('grid').addEventListener('keydown',e=>{if(e.key==='Enter'){const c=e.target.closest('.card');if(c)openModal(+c.dataset.id)}});
 
@@ -2103,6 +2165,13 @@ addEventListener('keydown',e=>{
    Reutiliza: all/GENS/STATS, getMon (caché), attach/rank, badge, animInto, drawTrainer, openModal
    ========================================================================== */
 const GM={mode:null,_prof:'',_ball:{}};
+GM.gens=new Set((()=>{try{return JSON.parse(localStorage.getItem('neggydex_gpool_v1')||'[]')}catch(e){return[]}})());
+const gInPool=p=>!GM.gens.size||[...GM.gens].some(i=>GENS[i]&&p.id>=GENS[i][2]&&p.id<=GENS[i][3]);
+function gTog(i){
+  if(i<0)GM.gens.clear();else if(GM.gens.has(i))GM.gens.delete(i);else GM.gens.add(i);
+  try{localStorage.setItem('neggydex_gpool_v1',JSON.stringify([...GM.gens]))}catch(e){}
+  gHome();
+}
 const GK='neggydex_games_v1',STARTERS=new Set();
 [1,4,7,152,155,158,252,255,258,387,390,393,495,498,501,650,653,656,722,725,728,810,813,816,906,909,912].forEach(b=>{for(let i=0;i<3;i++)STARTERS.add(b+i)});
 const COL={black:'Negro',blue:'Azul',brown:'Marrón',gray:'Gris',green:'Verde',pink:'Rosa',purple:'Morado',red:'Rojo',white:'Blanco',yellow:'Amarillo'};
@@ -2110,6 +2179,8 @@ const gStats=()=>{try{return JSON.parse(localStorage.getItem(GK)||'{}')}catch(e)
 function gSave(m,win,tries){
   const d=gStats(),s=d[m]||{played:0,won:0,streak:0,best:0};
   s.played++;if(win){s.won++;s.streak++;s.best=s.best?Math.min(s.best,tries):tries}else s.streak=0;
+  s.bs=Math.max(s.bs||0,s.streak);s.dist=s.dist||{};
+  if(win){const k=m==='w'?String(tries):tries<=3?'1-3':tries<=6?'4-6':tries<=9?'7-9':tries<=14?'10-14':'15+';s.dist[k]=(s.dist[k]||0)+1}
   d[m]=s;try{localStorage.setItem(GK,JSON.stringify(d))}catch(e){}return s;
 }
 /* Sprites propios generados por código: Pokéball pixelada (intentos) y el Profesor anfitrión */
@@ -2134,27 +2205,38 @@ function gProf(){
   return GM._prof;
 }
 const profHTML=()=>gProf()?`<img class="prof" src="${gProf()}" alt="">`:'<div class="prof emo">🧑‍🔬</div>';
-GM.confetti=el=>{for(let i=0;i<40;i++){const c=document.createElement('i');c.className='cf';c.style.cssText='left:'+Math.random()*100+'%;background:'+['#ff7a6b','#f6c76c','#7ddc9a','#8ab4ff','#c9a0ff'][i%5]+';animation-delay:'+(Math.random()*.8)+'s;animation-duration:'+(1.8+Math.random()*1.4)+'s';el.appendChild(c)}};
+GM.confetti=el=>{for(let i=0;i<40;i++){const c=document.createElement('i');c.className='cf';c.style.cssText='left:'+Math.random()*100+'%;background:'+['#ff7a6b','#f6c76c','#7ddc9a','#8ab4ff','#c9a0ff'][i%5]+';animation-delay:'+(Math.random()*.8)+'s;animation-duration:'+(1.8+Math.random()*1.4)+'s;--fh:'+((el.offsetHeight||300)+30)+'px';el.appendChild(c)}};
 const gShare=t=>{try{navigator.clipboard.writeText(t).then(()=>toast('Resultado copiado'),()=>toast('No se pudo copiar'))}catch(e){toast('No se pudo copiar')}};
 
 /* ---------- Portada de juegos ---------- */
 function gHome(){
   GM.mode=null;$('gm-area').hidden=true;$('gm-home').hidden=false;
   const S=gStats(),w=S.w||{},g=S.g||{};
-  $('gm-home').innerHTML=`<div class="gcards">
+  const pn=all.filter(gInPool).length;
+  $('gm-home').innerHTML=`<div class="gpool"><span>Pool de Pokémon · ${pn}</span><button class="gpc ${GM.gens.size?'':'on'}" onclick="gTog(-1)"><b>★</b>Todas</button>${GENS.map((g,i)=>`<button class="gpc ${GM.gens.has(i)?'on':''}" onclick="gTog(${i})"><b>${g[0]}</b>${g[1]}</button>`).join('')}</div><div class="gcards">
     <button class="gcard gw" onclick="gOpen('w')"><div class="gprev">${['P','I','K','A','?'].map((l,i)=>`<i class="${['ok','near','no','ok',''][i]}">${l}</i>`).join('')}</div>
-      <h3>Pokéwordle</h3><p>Adivina el nombre de un Pokémon elegido al azar entre los 1025. Verde, amarillo o gris por letra, y pistas que se desbloquean con cada fallo.</p>
+      <h3>Pokéwordle</h3><p>Adivina el nombre de un Pokémon elegido al azar entre los ${pn}. Verde, amarillo o gris por letra, y pistas que se desbloquean con cada fallo.</p>
       <div class="gst">Victorias ${w.won||0}/${w.played||0} · Racha ${w.streak||0} · Mejor ${w.best||'—'}</div></button>
     <button class="gcard gg" onclick="gOpen('g')"><div class="gprev">${[['ok','Gen'],['near','Tipo'],['no','Peso'],['ok','Color'],['near','Stats']].map(a=>`<i class="${a[0]}" style="font-size:.62rem">${a[1]}</i>`).join('')}</div>
       <h3>Adivina el Pokémon</h3><p>Prueba Pokémon y compara generación, tipos, inicial, legendario, tamaño y stats para dar con el secreto. Cuantos menos intentos, mejor.</p>
       <div class="gst">Victorias ${g.won||0}/${g.played||0} · Racha ${g.streak||0} · Mejor ${g.best||'—'}</div></button></div>`;
+}
+function gStatsOpen(m){
+  m=m||GM.mode||'w';const s=gStats()[m]||{played:0,won:0,streak:0,bs:0,dist:{}};
+  const keys=m==='w'?['1','2','3','4','5','6','7']:['1-3','4-6','7-9','10-14','15+'],d=s.dist||{},mx=Math.max(1,...keys.map(k=>d[k]||0));
+  $('gm-dlg').innerHTML=`<div class="rc gsd"><h2>📊 ${m==='w'?'Pokéwordle':'Adivina el Pokémon'}</h2>
+    <div class="gsn"><div><b>${s.played}</b><small>Partidas</small></div><div><b>${s.played?Math.round(s.won/s.played*100):0}%</b><small>Victorias</small></div><div><b>${s.streak}</b><small>Racha</small></div><div><b>${s.bs||s.streak}</b><small>Mejor racha</small></div></div>
+    <p class="gdt">Victorias por número de intentos</p>
+    <div class="gdist">${keys.map(k=>{const v=d[k]||0;return `<div class="gdr"><span>${k}</span><div class="gdb">${v?`<i style="width:${Math.max(12,v/mx*100)}%">${v}</i>`:''}</div></div>`}).join('')}</div>
+    <div class="row2"><button class="btn" onclick="$('gm-dlg').hidden=true">Cerrar</button></div></div>`;
+  $('gm-dlg').hidden=false;
 }
 function gOpen(m){
   if(!all.length){toast('La Pokédex aún está cargando…');return}
   GM.mode=m;$('gm-home').hidden=true;$('gm-area').hidden=false;window.scrollTo({top:0});
   if(m==='w')wStart();else gStart();
 }
-const gBar=(title,extra,again)=>`<div class="gbar"><button class="btn alt" onclick="gHome()">← Juegos</button><h3>${title}</h3>${extra}<button class="btn alt" onclick="${again}">🎲 Otro Pokémon</button></div>`;
+const gBar=(title,extra,again)=>`<div class="gbar"><button class="btn alt" onclick="gHome()">← Juegos</button><h3>${title}</h3>${extra}<button class="btn alt" onclick="gStatsOpen()" title="Estadísticas">📊</button><button class="btn alt" onclick="${again}">🎲 Otro Pokémon</button></div>`;
 const gSay=t=>{const e=$('g-say');if(e){e.textContent=t;e.classList.remove('say');void e.offsetWidth;e.classList.add('say')}};
 
 /* ==================== POKÉWORDLE ==================== */
@@ -2169,7 +2251,7 @@ function wEval(sec,g){
 function wStart(){
   WG.map=new Map();
   all.forEach(p=>{const k=wKeyOf(p.es);if(/^[a-z]{3,}$/.test(k)&&!WG.map.has(k))WG.map.set(k,p)});
-  const arr=[...WG.map.values()],p=arr[Math.floor(Math.random()*arr.length)];
+  const full=[...WG.map.values()],pl=full.filter(gInPool),arr=pl.length?pl:full,p=arr[Math.floor(Math.random()*arr.length)];
   Object.assign(WG,{secret:p,key:wKeyOf(p.es),n:wKeyOf(p.es).length,row:0,buf:'',over:false,busy:false,keys:{},hist:[]});
   const n=WG.n;
   $('gm-area').innerHTML=gBar('Pokéwordle','<div class="gtok" id="w-tok"></div>','wStart()')+
@@ -2178,7 +2260,7 @@ function wStart(){
     <div class="wsug" id="w-sug"></div><div class="whints" id="w-hints"></div>
     <div class="wkb">${['qwertyuiop','asdfghjkl','zxcvbnm'].map((row,i)=>`<div class="kr">${i===2?'<button class="kk wide" onclick="wKey(\'enter\')">Enter</button>':''}${[...row].map(ch=>`<button class="kk" id="wk${ch}" onclick="wKey('${ch}')">${ch}</button>`).join('')}${i===2?'<button class="kk wide" onclick="wKey(\'back\')">⌫</button>':''}</div>`).join('')}</div>
     <div class="gend" id="w-end"></div>`;
-  gSay(`¡Hola! He elegido un Pokémon al azar entre los 1025. Su nombre tiene ${n} letras. Tienes ${WG.max} intentos.`);
+  gSay(`¡Hola! He elegido un Pokémon al azar entre ${arr.length}. Su nombre tiene ${n} letras. Tienes ${WG.max} intentos.`);
   wHints();wTok();wCur();wSug();
 }
 function wTok(){const e=$('w-tok');if(e)e.innerHTML=Array.from({length:WG.max},(_,i)=>`<img src="${gBall(i<WG.row?'used':'full')}" alt="">`).join('')}
@@ -2197,8 +2279,8 @@ function wFill(k){WG.buf=k;wCur();wSug()}
 function wHints(){
   const e=$('w-hints');if(!e)return;
   const p=WG.secret,a=WG.row,gi=GENS.findIndex(g=>p.id>=g[2]&&p.id<=g[3]);
-  const H=[[2,'🌍','Generación',()=>`<b>Gen ${GENS[gi][0]}</b><em>${GENS[gi][1]}</em>`],[3,'🧬','Tipos',()=>`<div class="types">${p.types.map(badge).join('')}</div>`],[4,'👤','Silueta',()=>`<img class="sil" src="${mini(p.id)}" alt="">`],[5,'🔤','Empieza por',()=>`<b class="bigl">${WG.key[0].toUpperCase()}</b>`]];
-  e.innerHTML=H.map(([n,ic,t,f])=>a>=n?`<div class="hint on"><small>${ic} ${t}</small>${f()}</div>`:`<div class="hint"><small>🔒 ${t}</small><span>en ${n-a} intento${n-a===1?'':'s'}</span></div>`).join('');
+  const H=[[2,'🌍','Generación',()=>`<b>Gen ${GENS[gi][0]}</b><em>${GENS[gi][1]}</em>`],[3,'🧬','Tipos',()=>`<div class="types">${p.types.map(badge).join('')}</div>`],[4,'🔤','Empieza por',()=>`<b class="bigl">${WG.key[0].toUpperCase()}</b>`]];
+  e.innerHTML=H.map(([n,ic,t,f])=>a>=n?`<div class="ghc on"><small>${ic} ${t}</small>${f()}</div>`:`<div class="ghc"><small>🔒 ${t}</small><span>en ${n-a} intento${n-a===1?'':'s'}</span></div>`).join('');
 }
 function wKey(k){
   if(WG.over||WG.busy||GM.mode!=='w')return;
@@ -2232,7 +2314,7 @@ function wEnd(win){
   gSay(win?`¡Increíble! Lo has adivinado en ${WG.row} intento${WG.row===1?'':'s'}.`:'Esta vez no ha podido ser… ¡pero ya sabes quién era!');
   $('w-end').innerHTML=`<div class="endc"><div class="esp"><img data-id="${p.id}" alt=""></div><div><small>${win?'¡Victoria!':'Era…'}</small><h3>${p.es}</h3><div class="types" style="justify-content:flex-start">${p.types.map(badge).join('')}</div><p class="gst">Victorias ${s.won}/${s.played} · Racha ${s.streak} · Mejor ${s.best||'—'}</p><div class="row2"><button class="btn" onclick="wStart()">🎲 Otro Pokémon</button><button class="btn alt" onclick="openModal(${p.id})">Ver ficha</button><button class="btn alt" onclick="wShare()">📋 Compartir</button></div></div></div>`;
   animInto($('w-end').querySelector('img'),p.id,false,130);
-  if(win)GM.confetti($('w-end'));
+  if(win)GM.confetti($('w-end').querySelector('.endc'));
 }
 function wShare(){
   const E={ok:'🟩',near:'🟨',no:'⬛'};
@@ -2258,7 +2340,7 @@ function gCells(a,s){
     {k:'Inicial',t:yn(a.starter),st:a.starter===s.starter?'ok':'no'},
     {k:'Legendario',t:yn(a.legend),st:a.legend===s.legend?'ok':'no'},
     {k:'Color',t:COL[a.color]||'?',st:a.color===s.color?'ok':'no'},
-    {k:'Evolución',t:a.evo?'Evolucionado':'Básico',st:a.evo===s.evo?'ok':'no'},
+    {k:'Etapa',t:a.evo?'Evolución':'Básico',st:a.evo===s.evo?'ok':'no'},
     {k:'Altura',...num(a.h,s.h,v=>v.toFixed(1).replace('.',',')+' m',.2)},
     {k:'Peso',...num(a.w,s.w,v=>v.toFixed(1).replace('.',',')+' kg',.2)},
     {k:'Total stats',...num(a.bst,s.bst,v=>v,.1)},
@@ -2266,7 +2348,7 @@ function gCells(a,s){
   ];
 }
 async function gStart(){
-  const p=all[Math.floor(Math.random()*all.length)];
+  const pl=all.filter(gInPool),p=(pl.length?pl:all)[Math.floor(Math.random()*(pl.length||all.length))];
   Object.assign(GG,{id:p.id,sec:null,list:[],over:false,busy:false,hints:0});
   $('gm-area').innerHTML=gBar('Adivina el Pokémon','<div class="gcnt" id="g-cnt">Intentos: 0</div>','gStart()')+
    `<div class="gprof">${profHTML()}<div class="bubble say" id="g-say"></div></div>
@@ -2282,7 +2364,7 @@ async function gGuess(id){
   if(GG.over||GG.busy||!GG.sec)return;GG.busy=true;
   try{
     const a=await gInfo(id),cells=gCells(a,GG.sec);GG.list.push(a);
-    $('g-rows').insertAdjacentHTML('afterbegin',`<div class="gr"><div class="gp"><img src="${mini(a.id)}" alt=""><b>${esc(all[a.id-1].es)}</b></div>${cells.map((c,i)=>`<div class="gc ${c.st}" style="--d:${i*110+120}ms"><small>${c.k}</small>${c.type!==undefined?(c.type?badge(c.type):'<b>—</b>'):`<b>${c.t}</b>`}${c.sub?`<em>${c.sub}</em>`:''}${c.ar?`<i class="ar">${c.ar}</i>`:''}</div>`).join('')}</div>`);
+    $('g-rows').insertAdjacentHTML('afterbegin',`<div class="gr"><div class="gp"><img src="${mini(a.id)}" alt=""><b>${esc(all[a.id-1].es)}</b></div>${cells.map((c,i)=>`<div class="gc ${c.st}" style="--d:${i*110+120}ms"><small>${c.k}</small>${c.type!==undefined?(c.type?badge(c.type):'<b>—</b>'):`<b>${c.t}${c.ar?' <i class="ar">'+c.ar+'</i>':''}</b>`}${c.sub?`<em>${c.sub}</em>`:''}</div>`).join('')}</div>`);
     $('g-cnt').textContent='Intentos: '+GG.list.length;
     if(id===GG.id)gEnd(true);
     else{const ok=cells.filter(c=>c.st==='ok').length;gSay(ok>=8?`¡Muy cerca! ${ok} de ${cells.length} pistas en verde.`:ok>=4?`Vas bien: ${ok} pistas en verde.`:'Aún queda por descubrir… fíjate en las flechas y los amarillos.')}
@@ -2292,7 +2374,10 @@ async function gGuess(id){
 function gHint(){
   if(GG.over||!GG.sec)return;
   const p=all[GG.id-1],h=++GG.hints,gi=GG.sec.gen;
-  const parts=[`<div class="hint on"><small>👤 Silueta</small><img class="sil" src="${mini(p.id)}" alt=""></div>`,`<div class="hint on"><small>🔤 Nombre</small><b class="bigl">${wKeyOf(p.es)[0].toUpperCase()}</b><em>${wKeyOf(p.es).length} letras</em></div>`,`<div class="hint on"><small>🌍 Región</small><b>Gen ${GENS[gi][0]}</b><em>${GENS[gi][1]}</em></div>`];
+  const key=wKeyOf(p.es),parts=[
+    `<div class="ghc on"><small>🔤 Nombre</small><b class="bigl">${key[0].toUpperCase()}</b><em>${key.length} letras</em></div>`,
+    `<div class="ghc on"><small>🌍 Región</small><b>Gen ${GENS[gi][0]}</b><em>${GENS[gi][1]}</em></div>`,
+    `<div class="ghc on"><small>🔚 Termina en</small><b class="bigl">${key[key.length-1].toUpperCase()}</b></div>`];
   $('g-hint').innerHTML=parts.slice(0,Math.min(h,3)).join('');
   gSay(h<=3?'Aquí tienes una pista. Úsalas con cabeza…':'Ya no me quedan más pistas, ¡tú puedes!');
 }
@@ -2302,7 +2387,7 @@ function gEnd(win){
   gSay(win?`¡Lo has encontrado en ${GG.list.length} intento${GG.list.length===1?'':'s'}!`:'No pasa nada, ¡era un buen reto!');
   $('g-end').innerHTML=`<div class="endc"><div class="esp"><img data-id="${p.id}" alt=""></div><div><small>${win?'¡Victoria!':'Era…'}</small><h3>${p.es}</h3><div class="types" style="justify-content:flex-start">${p.types.map(badge).join('')}</div><p class="gst">Victorias ${s.won}/${s.played} · Racha ${s.streak} · Mejor ${s.best||'—'}</p><div class="row2"><button class="btn" onclick="gStart()">🎲 Otro Pokémon</button><button class="btn alt" onclick="openModal(${p.id})">Ver ficha</button></div></div></div>`;
   animInto($('g-end').querySelector('img'),p.id,false,130);
-  if(win)GM.confetti($('g-end'));
+  if(win)GM.confetti($('g-end').querySelector('.endc'));
 }
 addEventListener('keydown',e=>{
   if(GM.mode!=='w'||!$('v-games').classList.contains('on')||e.ctrlKey||e.metaKey||e.altKey)return;
