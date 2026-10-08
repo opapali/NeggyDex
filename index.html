@@ -141,8 +141,8 @@ body{background:radial-gradient(900px 420px at 50% -80px,#232b52 0,transparent 7
 .card h3{font-size:1.05rem;margin:10px 0 9px;letter-spacing:-.01em}
 .tb{padding:3px 10px;font-size:.72rem;letter-spacing:.01em}
 .side,.move,.result,details{box-shadow:0 12px 30px #0004}
-.top{position:fixed;right:22px;bottom:22px;z-index:70;width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:1.3rem;font-weight:800;cursor:pointer;box-shadow:0 10px 24px #ff7a6b55;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s}
-.top.show{opacity:1;pointer-events:auto;transform:none}
+.totop{position:fixed;right:22px;bottom:22px;z-index:70;width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:1.3rem;font-weight:800;cursor:pointer;box-shadow:0 10px 24px #ff7a6b55;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
 .modal{scrollbar-gutter:stable}
 @media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}.art{width:112px;height:112px}}
 
@@ -754,7 +754,7 @@ header.compact .bar{padding-top:8px;padding-bottom:8px}
   .tab .ti{margin:0;font-size:1.3rem}.tab .tdx{display:none}
   .tind{border-radius:20px;top:6px;bottom:6px}
   main{padding-bottom:120px}
-  .top{bottom:100px}.toast{bottom:104px}
+  .totop{bottom:100px}.toast{bottom:104px}
 }
 .gpool{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 22px}
 .gpool>span{color:var(--muted);font-size:.85rem;font-weight:700;margin-right:6px}
@@ -1050,7 +1050,7 @@ html.noamb .amb,html.noamb .cglow{display:none}
       <div class="fxl" id="b-fx"></div><div class="flash" id="b-fl"></div>
       <div class="turnb" id="b-turn">Turno 1</div>
       <div class="hud hen" id="b-he"><div class="hh"><b class="nm"></b><span class="lv"></span><span class="stx"></span></div><div class="htp"></div><div class="hpb"><i></i></div><div class="hpt"><span class="ht"></span><span class="pips"></span></div></div>
-      <div class="hud hme" id="b-hp"><div class="hh"><b class="nm"></b><span class="lv"></span><span class="stx"></span></div><div class="hpb"><i></i></div><div class="hpt"><span class="ht"></span><span class="pips"></span></div></div>
+      <div class="hud hme" id="b-hp"><div class="hh"><b class="nm"></b><span class="lv"></span><span class="stx"></span></div><div class="htp"></div><div class="hpb"><i></i></div><div class="hpt"><span class="ht"></span><span class="pips"></span></div></div>
     </div>
     <div class="ctl">
       <div class="cp"><h4>ACCIONES</h4><div class="cbox" id="bt-ctl"></div></div>
@@ -1068,7 +1068,7 @@ html.noamb .amb,html.noamb .cglow{display:none}
   <div class="bres" id="gm-dlg" hidden onclick="if(event.target===this)this.hidden=true"></div>
 </section>
 </main>
-<footer class="foot">NeggyDex · datos de PokeAPI · <kbd>Ctrl</kbd> <kbd>K</kbd> para buscar en todo</footer>
+<footer class="foot"></footer>
 
 <div class="setp" id="setp" hidden>
   <h4>Color de acento</h4><div class="swatches" id="swatches"></div>
@@ -1077,7 +1077,7 @@ html.noamb .amb,html.noamb .cglow{display:none}
   <div class="keys"><b>Atajos</b><span><kbd>Ctrl</kbd><kbd>K</kbd> Buscar en todo</span><span><kbd>/</kbd> Buscar Pokémon</span><span><kbd>←</kbd><kbd>→</kbd> Anterior / siguiente en la ficha</span><span><kbd>A</kbd><kbd>C</kbd><kbd>1</kbd>–<kbd>6</kbd> En combate</span></div>
 </div>
 <div class="cmd" id="cmd" hidden><div class="cmdb"><input id="cmd-in" placeholder="Busca un Pokémon o ve a una sección…" autocomplete="off" aria-label="Buscar en todo"><div class="cmdl" id="cmd-l"></div><div class="cmdh">↑↓ moverte · Enter abrir · Esc cerrar</div></div></div>
-<button class="top" id="top" aria-label="Volver arriba">↑</button>
+<button class="totop" id="top" aria-label="Volver arriba">↑</button>
 <div class="overlay" id="ov"><div class="modal" id="md"></div></div>
 
 <script>
@@ -1175,7 +1175,7 @@ $('logo').onclick=goHome;
 $('logo').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goHome()}});
 /* Saludo según la hora */
 (function(){const h=new Date().getHours(),g=h<6?['Buenas noches','🌙']:h<13?['Buenos días','☀️']:h<20?['Buenas tardes','🌤️']:['Buenas noches','🌙'];
-  $('hero').innerHTML='<h1>'+g[0]+', entrenador <span class="wave">👋</span></h1><p>1025 Pokémon te esperan. Ponte cómodo y explora '+g[1]+'</p><div class="hbtns"><button class="btn" onclick="randMon()">🎲 Pokémon al azar</button><button class="btn alt" onclick="cmdOpen()">🔍 Buscar en todo <kbd class="kb">Ctrl K</kbd></button></div>'})();
+  $('hero').innerHTML='<h1>'+g[0]+', entrenador <span class="wave">👋</span></h1><p>1025 Pokémon te esperan. Ponte cómodo y explora '+g[1]+'</p><div class="hbtns"><button class="btn" onclick="randMon()">🎲 Pokémon al azar</button><button class="btn alt" onclick="cmdOpen()">🔍 Buscar en todo</button></div>'})();
 /* Marcador del buscador que se escribe solo */
 (function(){const ex=['pikachu','charizard','25','gengar','eevee','150','mimikyu','lucario'],q=$('q');let i=0,j=0,del=false,hold=0;
   setInterval(()=>{if(document.activeElement===q||q.value)return;
