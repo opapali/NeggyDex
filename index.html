@@ -914,6 +914,18 @@ html.noamb .amb,html.noamb .cglow{display:none}
 .gbar h3{background:linear-gradient(90deg,#fff,var(--ac1,#ffd0c8));-webkit-background-clip:text;background-clip:text;color:transparent}
 .gtok img{animation:pop .4s both}.xwrong .wch{animation:pop .4s both}
 .bubble{box-shadow:0 8px 24px #0004}.endc .row2 .btn{animation:riseIn .5s .3s both}
+/* ===== objetos / mega combate ===== */
+.itrow{display:flex;gap:8px;align-items:center;margin:8px 0 2px}.itsel{flex:1;min-width:0;padding:8px 10px;border-radius:12px;background:#ffffff0d;border:1px solid #ffffff22;color:var(--text);font:inherit;font-size:.82rem}.itsel option,.itsel optgroup{background:#231e31;color:#fff}
+.itd{font-size:.72rem;opacity:.7;margin:0 2px 6px;line-height:1.3}
+.megab{width:100%;margin-bottom:10px;padding:12px;border-radius:14px;border:1.5px solid #c084fc88;background:linear-gradient(120deg,#7c3aed44,#ec489944);color:#fff;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.megab:hover{transform:translateY(-2px)}.megab.on{background:linear-gradient(120deg,#7c3aed,#ec4899);box-shadow:0 0 22px #c084fc99;animation:megaP 1.2s infinite}
+@keyframes megaP{50%{box-shadow:0 0 34px #f0abfccc}}
+/* easter egg */
+.egg{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#0009;backdrop-filter:blur(4px);animation:eggIn .3s both;cursor:pointer}
+.egg div{text-align:center;color:#fff;font-weight:800;animation:eggPop .6s cubic-bezier(.2,1.6,.4,1) both}
+.egg img{width:240px;image-rendering:pixelated;display:block;margin:0 auto 10px;filter:drop-shadow(0 12px 20px #000a);animation:eggJ .6s ease-in-out infinite alternate}
+.egg b{font-size:1.4rem;text-shadow:0 2px 12px #000}.egg small{display:block;opacity:.7;margin-top:6px;font-weight:600}
+@keyframes eggIn{from{opacity:0}}@keyframes eggPop{from{transform:scale(.3) rotate(-10deg);opacity:0}}@keyframes eggJ{to{transform:translateY(-14px)}}
 </style>
 </head>
 <body>
@@ -1705,7 +1717,7 @@ const BE={
   act:s=>B[s].team[B[s].i],
   nm:(m,s)=>s==='a'?m.name+' rival':m.name,
   stg:v=>v>=0?(2+v)/2:2/(2-v),
-  eff(m,k){let v=m.st[k]*BE.stg(m.stg[k]);if(k==='spe'&&m.status==='par')v*=.5;return v},
+  eff(m,k){let v=m.st[k]*BE.stg(m.stg[k]);if(k==='spe'&&m.status==='par')v*=.5;const ik=m.item&&m.item.k;if(k==='spe'&&ik==='choicescarf')v*=1.5;if(k==='spd'&&ik==='assaultvest')v*=1.5;return v},
   moveOf:(s,i)=>i<0?{...STRUGGLE}:BE.act(s).mv[i],
   alive:s=>B[s].team.map((m,i)=>m.fainted?-1:i).filter(i=>i>=0),
   hpPct:s=>B[s].team.reduce((x,m)=>x+m.hp/m.maxHp,0)/B[s].team.length,
@@ -1713,7 +1725,8 @@ const BE={
   calc(att,def,mv,o={}){
     const ph=mv.c==='physical',base=baseDamage(att.lv,mv.p,BE.eff(att,ph?'atk':'spa'),BE.eff(def,ph?'def':'spd'));
     const eff=mv.nt?1:typeEff(mv.t,def.types),stab=!mv.nt&&att.types.includes(mv.t)?1.5:1;
-    const mult=stab*eff*(o.crit?1.5:1)*(att.status==='brn'&&ph?.5:1);
+    const it=att.item||{},ik=it.k;let im=1;if(ik==='lifeorb')im=1.3;else if(ik==='choiceband'&&ph)im=1.5;else if(ik==='choicespecs'&&!ph)im=1.5;else if(ik==='muscleband'&&ph)im=1.1;else if(ik==='wiseglasses'&&!ph)im=1.1;else if(ik==='expertbelt'&&eff>1)im=1.2;else if(it.kind==='type'&&it.t===mv.t)im=1.2;
+    const mult=stab*eff*im*(o.crit?1.5:1)*(att.status==='brn'&&ph?.5:1);
     return {eff,dmg:eff===0?0:Math.max(1,rollDamage(base,o.rnd||100,mult))};
   },
   hits(mv){if(mv.minH===mv.maxH)return mv.minH;if(mv.minH===2&&mv.maxH===5){const r=Math.random();return r<.35?2:r<.7?3:r<.85?4:5}return mv.minH+Math.floor(Math.random()*(mv.maxH-mv.minH+1))},
@@ -1765,6 +1778,7 @@ const BE={
     const att=BE.act(s),o=BE.other(s),def=BE.act(o);
     if(!await BE.canMove(s))return;
     if(mv.slug!=='struggle')mv.pp=Math.max(0,mv.pp-1);
+    if(att.item&&/^choice/.test(att.item.k)&&mv.slug!=='struggle'&&att.lock==null)att.lock=att.mv.indexOf(mv);
     await UI.say(`${BE.nm(att,s)} usó ${mv.n}.`);
     if(mv.a&&Math.random()*100>mv.a){await UI.miss(s);await UI.say('¡El ataque falló!');return}
     await UI.attack(s,mv);
@@ -1774,8 +1788,11 @@ const BE={
       const crit=Math.random()<[1/24,1/8,1/2,1][Math.min(3,mv.crit)];
       const r=BE.calc(att,def,mv,{crit,rnd:85+Math.floor(Math.random()*16)});
       if(r.eff===0){await UI.say(`¡No afecta a ${BE.nm(def,o)}!`);return}
-      const d=Math.min(def.hp,r.dmg);def.hp-=d;tot+=d;cnt++;
+      let d=Math.min(def.hp,r.dmg),sash=false;
+      if(d>=def.hp&&def.hp===def.maxHp&&def.item&&def.item.k==='focussash'&&!def.sashUsed){d=def.hp-1;def.sashUsed=true;sash=true}
+      def.hp-=d;tot+=d;cnt++;
       await UI.hit(o,{eff:r.eff,crit,dmg:d});
+      if(sash)await UI.say(`¡${BE.nm(def,o)} resistió con su Banda Focus!`);
     }
     if(n>1)await UI.say(`¡Golpeó ${cnt} veces!`);
     if(tot>0&&mv.drain>0){att.hp=Math.min(att.maxHp,att.hp+Math.max(1,Math.floor(tot*mv.drain/100)));await UI.hp(s);await UI.say(`${BE.nm(att,s)} absorbió energía.`)}
@@ -1783,6 +1800,7 @@ const BE={
     if(tot>0&&mv.drain<0)rec=Math.max(1,Math.floor(tot*-mv.drain/100));
     if(mv.rec)rec=Math.max(1,Math.floor(att.maxHp*mv.rec/100));
     if(rec){att.hp=Math.max(0,att.hp-rec);await UI.hp(s);await UI.say(`¡${BE.nm(att,s)} sufrió daño de retroceso!`)}
+    if(tot>0&&att.hp>0&&att.item&&att.item.k==='lifeorb'){att.hp=Math.max(0,att.hp-Math.max(1,Math.floor(att.maxHp/10)));await UI.hp(s);await UI.say(`¡${BE.nm(att,s)} perdió PS por su Vidasfera!`)}
     if(def.hp>0){
       if(AIL[mv.ail]&&mv.ailC>0&&Math.random()*100<mv.ailC)await BE.inflict(o,mv.slug==='poison-fang'?'tox':AIL[mv.ail],false);
       if(mv.st.length&&def.hp>0){
@@ -1802,6 +1820,7 @@ const BE={
     const ord=['p','a'].sort((x,y)=>BE.eff(BE.act(y),'spe')-BE.eff(BE.act(x),'spe'));
     for(const s of ord){
       const m=BE.act(s);if(m.fainted||m.hp<=0||B.over)continue;
+      if(m.item&&m.item.k==='leftovers'&&m.hp<m.maxHp){m.hp=Math.min(m.maxHp,m.hp+Math.max(1,Math.floor(m.maxHp/16)));await UI.hp(s);await UI.say(`${BE.nm(m,s)} recuperó PS con sus Restos.`)}
       let d=0,msg='';
       if(m.status==='brn'){d=Math.max(1,Math.floor(m.maxHp/16));msg='sufre quemaduras'}
       else if(m.status==='psn'){d=Math.max(1,Math.floor(m.maxHp/8));msg='sufre envenenamiento'}
@@ -1809,10 +1828,17 @@ const BE={
       if(d){m.hp=Math.max(0,m.hp-d);await UI.hp(s);await UI.say(`${BE.nm(m,s)} ${msg}.`);if(m.hp<=0)await BE.faintNow(s)}
     }
   },
+  async mega(s){
+    const m=BE.act(s);if(!m.mega||m.megaOn||B[s].megaUsed||m.fainted)return;
+    B[s].megaUsed=true;m.megaOn=true;
+    await UI.say(`¡${BE.nm(m,s)} reacciona a su ${m.item.n}!`);
+    m.name=m.mega.label;m.types=m.mega.types;const g=m.mega.st;if(g.hp&&g.hp!==m.maxHp){m.hp=Math.ceil(m.hp*g.hp/m.maxHp);m.maxHp=g.hp;m.st.hp=g.hp;UI.shown[s]=m.hp}Object.assign(m.st,{atk:g.atk,def:g.def,spa:g.spa,spd:g.spd,spe:g.spe});
+    await UI.megaAnim(s,m);await UI.say(`¡${BE.nm(m,s)} ha megaevolucionado!`);
+  },
   async switchTo(s,i,forced){
     const old=BE.act(s);
     if(!forced&&!old.fainted){await UI.say(s==='p'?`¡Vuelve, ${old.name}!`:`${BE.tn()} retiró a ${old.name}.`);await UI.leave(s)}
-    old.stg={atk:0,def:0,spa:0,spd:0,spe:0};old.tx=1;old.flinch=false;
+    old.stg={atk:0,def:0,spa:0,spd:0,spe:0};old.tx=1;old.flinch=false;old.lock=null;
     B[s].i=i;const m=BE.act(s);
     UI.switchIn(s,m);
     await UI.say(s==='p'?`¡Adelante, ${m.name}!`:`${BE.tn()} envió a ${m.name}.`);
@@ -1830,6 +1856,7 @@ const BE={
   async turn(pa,aa){
     B.turn++;BE.act('p').flinch=false;BE.act('a').flinch=false;
     for(const [s,ac] of [['p',pa],['a',aa]])if(ac.t==='switch')await BE.switchTo(s,ac.i);
+    for(const [s,ac] of [['p',pa],['a',aa]])if(ac.t==='move'&&ac.mega)await BE.mega(s);
     const q=[['p',pa],['a',aa]].filter(x=>x[1].t==='move').map(([s,ac])=>({s,mv:BE.moveOf(s,ac.i)}));
     q.sort((x,y)=>(y.mv.pr-x.mv.pr)||(BE.eff(BE.act(y.s),'spe')-BE.eff(BE.act(x.s),'spe'))||(Math.random()-.5));
     for(const it of q){
@@ -1877,6 +1904,7 @@ const BAI={
     return (Math.log2(Math.max(off,.25))-Math.log2(Math.max(df,.25)))*.5+(m.hp/m.maxHp-.5)*.6+sp;
   },
   chooseMove(ai,foe,diff){
+    if(ai.lock!=null&&ai.item&&/^choice/.test(ai.item.k)&&ai.mv[ai.lock]&&ai.mv[ai.lock].pp>0)return {t:'move',i:ai.lock};
     const ms=ai.mv.map((m,i)=>({i,s:BAI.evaluateMove(ai,foe,m,diff),m})).filter(x=>x.s>-1e8);
     if(!ms.length)return {t:'move',i:-1};
     if(diff==='easy'){
@@ -1907,7 +1935,9 @@ const BAI={
   },
   choose(diff){
     if(diff!=='easy'&&BAI.wantSwitch(diff)){const k=BAI.chooseSwitch(B.a.team,BE.act('p'),diff,B.a.i);if(k>=0){B.a.lastSw=B.turn+1;return {t:'switch',i:k}}}
-    return BAI.chooseMove(BE.act('a'),BE.act('p'),diff);
+    const ai=BE.act('a'),r=BAI.chooseMove(ai,BE.act('p'),diff);
+    if(r.t==='move'&&ai.mega&&!ai.megaOn&&!B.a.megaUsed)r.mega=true;
+    return r;
   }
 };
 
@@ -1928,10 +1958,16 @@ const BD={
   stat:(b,L,hp)=>hp?Math.floor((2*b+31+21)*L/100)+L+10:Math.floor((2*b+31+21)*L/100)+5,
   base(d){return Object.fromEntries(d.stats.map(x=>[x.stat.name,x.base_stat]))},
   statsOf(id){const d=cache[id];if(!d)return null;const g=BD.base(d),L=BD.lv;return{hp:BD.stat(g.hp,L,1),atk:BD.stat(g.attack,L),def:BD.stat(g.defense,L),spa:BD.stat(g['special-attack'],L),spd:BD.stat(g['special-defense'],L),spe:BD.stat(g.speed,L)}},
-  async mon(id,slugs){
+  async mon(id,slugs,ik){
     const d=await getMon(id),p=all[id-1],st=BD.statsOf(id);
     const mv=(await Promise.all(slugs.slice(0,4).map(s=>BD.move(s)))).map(m=>({...m,max:m.pp}));
-    return{id,key:p.key,name:p.es,lv:BD.lv,types:p.types,st,maxHp:st.hp,hp:st.hp,mv,status:null,sl:0,tx:1,stg:{atk:0,def:0,spa:0,spd:0,spe:0},fainted:false,flinch:false};
+    const item=itemOf(ik,id);let mega=null;
+    if(item&&item.kind==='stone'){try{
+      const fj=FC[item.form]||(FC[item.form]=await (await fetch(API+'pokemon/'+item.form)).json()),g=BD.base(fj),L=BD.lv;
+      mega={form:item.form,id:fj.id,label:fLabel(item.form,id),key:all[id-1].key+'-'+sufOf(item.form,id).replace(/-/g,''),types:fj.types.map(t=>t.type.name),
+        st:{hp:BD.stat(g.hp,L,1),atk:BD.stat(g.attack,L),def:BD.stat(g.defense,L),spa:BD.stat(g['special-attack'],L),spd:BD.stat(g['special-defense'],L),spe:BD.stat(g.speed,L)}};
+    }catch(e){mega=null}}
+    return{id,key:p.key,name:p.es,lv:BD.lv,types:p.types,st,maxHp:st.hp,hp:st.hp,mv,status:null,sl:0,tx:1,stg:{atk:0,def:0,spa:0,spd:0,spe:0},fainted:false,flinch:false,item,mega};
   },
   /* Elige 4 movimientos coherentes: el mejor STAB de cada tipo propio + cobertura de tipos nuevos */
   async pickMoves(id){
@@ -1965,12 +2001,12 @@ const BD={
         let v=arche==='offense'?o*1.2:arche==='defense'?df:arche==='balanced'?x.bst*.6+o*.2+df*.2:x.bst*.4;
         v+=x.ty.filter(t=>!team.some(m=>m.ty.includes(t))).length*45;
         const mu=matchups(x.ty);v-=Object.keys(mu).filter(t=>mu[t]>1&&team.filter(m=>matchups(m.ty)[t]>1).length>=2).length*40;
-        return v+Math.random()*40;
+        return v+Math.random()*40+(MEGA_IDS.has(x.id)?60:0);
       };
       const best=c.map(x=>[sc(x),x]).sort((a,b)=>b[0]-a[0])[0][1];
       team.push(best);c.splice(c.indexOf(best),1);
     }
-    return Promise.all(team.map(async x=>{
+    const out=await Promise.all(team.map(async x=>{
       const slugs=await BD.pickMoves(x.id),phys=x.s.attack>=x.s['special-attack'];
       if(diff!=='easy'&&Math.random()<.4){
         const u=(phys?['swords-dance','bulk-up','dragon-dance','recover','roost','toxic','thunder-wave','will-o-wisp']:['nasty-plot','calm-mind','recover','roost','toxic','thunder-wave','spore']).find(s=>x.learn.has(s));
@@ -1978,12 +2014,43 @@ const BD={
       }
       return{id:x.id,slugs};
     }));
+    await bdItems(out,diff);return out;
   }
 };
 
 /* ==========================================================================
    COMBATE · interfaz (UI): arena, HUD, animaciones, menús y registro
    ========================================================================== */
+/* ---- Objetos equipables y Megapiedras ---- */
+const COMP=[['lifeorb','Vidasfera'],['leftovers','Restos'],['focussash','Banda Focus'],['assaultvest','Chaleco Asalto'],['choiceband','Cinta Elegida'],['choicespecs','Gafas Elegidas'],['choicescarf','Pañuelo Elegido'],['expertbelt','Cinturón Experto'],['muscleband','Cinta Fuerte'],['wiseglasses','Gafas Sabias']];
+const COMPD={lifeorb:'+30 % de daño, pierde 10 % PS al atacar.',leftovers:'Recupera 1/16 de PS cada turno.',focussash:'Sobrevive con 1 PS a un golpe letal (con PS al máximo, una vez).',assaultvest:'Defensa Esp. ×1,5. Solo permite atacar.',choiceband:'Ataque ×1,5, pero queda bloqueado en un movimiento.',choicespecs:'Ataque Esp. ×1,5, pero queda bloqueado en un movimiento.',choicescarf:'Velocidad ×1,5, pero queda bloqueado en un movimiento.',expertbelt:'+20 % de daño en golpes supereficaces.',muscleband:'+10 % de daño físico.',wiseglasses:'+10 % de daño especial.'};
+const TYPE_ITEMS={normal:'Pañuelo Seda',fire:'Carbón',water:'Agua Mística',electric:'Imán',grass:'Semilla Milagro',ice:'Antiderretir',fighting:'Cinturón Negro',poison:'Flecha Venenosa',ground:'Arena Fina',flying:'Pico Afilado',psychic:'Cuchara Torcida',bug:'Polvo Plata',rock:'Piedra Dura',ghost:'Hechizo',dragon:'Colmillo Dragón',dark:'Gafas de Sol',steel:'Revest. Metálico',fairy:'Polvo Hada'};
+const MGC={},MGP={};
+function stoneName(f,id){if(/eternamax/.test(f))return 'Eternamax';const m=sufOf(f,id).match(/^mega(?:-([xyz]))?$/);return all[id-1].es+'ita'+(m&&m[1]?' '+m[1].toUpperCase():'')}
+function itemOf(k,id){
+  if(!k)return null;
+  if(k.startsWith('type:')){const t=k.slice(5);return{k,kind:'type',t,n:TYPE_ITEMS[t]||'Objeto'}}
+  if(k.startsWith('mega:')){const f=k.slice(5);return{k,kind:'stone',form:f,n:stoneName(f,id)}}
+  const c=COMP.find(x=>x[0]===k);return c?{k,kind:'comp',n:c[1]}:null;
+}
+async function getMegas(id){
+  if(MGC[id])return MGC[id];
+  if(id===890)return MGC[id]=['eternatus-eternamax'];
+  if(!MEGA_IDS.has(id))return MGC[id]=[];
+  const b=all[id-1].name;
+  const r=await Promise.all(['-mega','-mega-x','-mega-y','-mega-z'].map(x=>b+x).map(n=>FC[n]?Promise.resolve(n):fetch(API+'pokemon/'+n).then(r=>r.ok?r.json():null).then(j=>{if(j){FC[n]=j;return n}return null}).catch(()=>null)));
+  return MGC[id]=r.filter(Boolean);
+}
+async function bdItems(out,diff){
+  const K=['lifeorb','leftovers','focussash','expertbelt','assaultvest','choicescarf','choiceband','choicespecs'];
+  if(diff!=='easy')out.forEach(x=>{
+    const d=cache[x.id],g=d?BD.base(d):null,ph=g?g.attack>=g['special-attack']:true;let k=K[Math.floor(Math.random()*K.length)];
+    if(k==='choiceband'&&!ph)k='choicespecs';else if(k==='choicespecs'&&ph)k='choiceband';
+    if(Math.random()<.25)k='type:'+all[x.id-1].types[0];x.item=k;
+  });
+  const c=out.filter(x=>MEGA_IDS.has(x.id)||x.id===890);
+  if(c.length&&Math.random()<(diff==='easy'?.6:.85)){const x=c[Math.floor(Math.random()*c.length)];try{const mg=await getMegas(x.id);if(mg.length)x.item='mega:'+mg[Math.floor(Math.random()*mg.length)]}catch(e){}}
+}
 const EMO={normal:'⚪',fire:'🔥',water:'💧',electric:'⚡',grass:'🍃',ice:'❄️',fighting:'🥊',poison:'☠️',ground:'⛰️',flying:'🪽',psychic:'🔮',bug:'🐛',rock:'🪨',ghost:'👻',dragon:'🐉',dark:'🌑',steel:'⚙️',fairy:'✨'};
 const FXK={fire:'orb',water:'spray',grass:'spray',electric:'bolt',ice:'spray',poison:'spray',bug:'spray',psychic:'ring',ghost:'ring',dark:'ring',fairy:'ring',dragon:'ring',normal:'burst',fighting:'burst',flying:'burst',steel:'burst',rock:'quake',ground:'quake'};
 const BASE='translate(-50%,-100%)';
@@ -2004,7 +2071,7 @@ const UI={
   /* --- HUD y barras de PS --- */
   hud(s){
     const m=BE.act(s),h=UI.hudEl(s);
-    h.querySelector('.nm').textContent=BE.nm(m,s);h.querySelector('.htp').innerHTML=m.types.map(badge).join('');h.querySelector('.lv').textContent='Nv. '+m.lv;
+    h.querySelector('.nm').textContent=BE.nm(m,s);h.querySelector('.htp').innerHTML=m.types.map(badge).join('');h.querySelector('.lv').textContent='Nv. '+m.lv+(m.megaOn?' · 💎 Mega':s==='p'&&m.item?' · 🎒 '+m.item.n:s==='a'&&m.mega?' · 💎':'');
     const st=h.querySelector('.stx');st.textContent=m.status?STL[m.status]:'';st.className='stx'+(m.status?' st-'+m.status:'');
     h.querySelector('.pips').innerHTML=B[s].team.map(x=>`<i class="${x.fainted?'ko':'ok'}"></i>`).join('');
     UI.paintHp(s,UI.shown[s]);
@@ -2020,8 +2087,9 @@ const UI={
   },
   /* --- sprites --- */
   sprite(s,m){
-    const el=UI.el(s),p=all[m.id-1],front=spriteChain(p,false).map(x=>({...x,f:1}));
-    const ch=s==='p'?[{u:PS+'gen5ani-back/'+p.key+'.gif',a:1},{u:PS+'gen5-back/'+p.key+'.png',a:0},{u:SPR+'back/'+m.id+'.png',a:0},...front]:front;
+    const el=UI.el(s),p=all[m.id-1],mg=m.megaOn&&m.mega;
+    const front=(mg?[{u:PS+'gen5ani/'+mg.key+'.gif',a:1},{u:PS+'gen5/'+mg.key+'.png',a:0},{u:SPR+mg.id+'.png',a:0}]:spriteChain(p,false)).map(x=>({...x,f:1}));
+    const ch=s==='p'&&mg?[{u:PS+'gen5ani-back/'+mg.key+'.gif',a:1},{u:PS+'gen5-back/'+mg.key+'.png',a:0},{u:SPR+'back/'+mg.id+'.png',a:0},...front]:s==='p'?[{u:PS+'gen5ani-back/'+p.key+'.gif',a:1},{u:PS+'gen5-back/'+p.key+'.png',a:0},{u:SPR+'back/'+m.id+'.png',a:0},...front]:front;
     el.classList.remove('flip','idle');el.style.width=el.style.height='';let i=0;
     const box=$('ar').clientWidth*(s==='p'?.27:.2);
     el.onload=()=>{
@@ -2105,7 +2173,14 @@ const UI={
   /* --- menús: main / moves / switch --- */
   choose(){UI.view('main');return new Promise(r=>UI._res=r)},
   forceSwitch(){UI.view('switch',true);return new Promise(r=>UI._res=r)},
-  pick(a){if(!UI._res)return;const r=UI._res;UI._res=null;r(a)},
+  megaSel:false,
+  async megaAnim(s,m){
+    const el=UI.el(s);
+    await UI.anim(el,[{filter:'brightness(1)',transform:'scale(1)'},{filter:'brightness(8) saturate(0)',transform:'scale(1.2)'}],{duration:450});
+    UI.sprite(s,m);UI.hud(s);
+    await UI.anim(el,[{filter:'brightness(8) saturate(0) hue-rotate(0)',transform:'scale(1.3)'},{filter:'brightness(1.6) hue-rotate(90deg)',transform:'scale(1.1)',offset:.6},{filter:'brightness(1)',transform:'scale(1)'}],{duration:650});
+  },
+  pick(a){if(!UI._res)return;const r=UI._res;UI._res=null;UI.megaSel=false;r(a)},
   view(k,forced){
     const me=BE.act('p'),foe=BE.act('a'),c=$('bt-ctl');
     if(k==='main'){
@@ -2115,9 +2190,10 @@ const UI={
       const usable=me.mv.some(m=>m.pp>0);
       const cards=usable?me.mv.map((m,i)=>{
         const ef=m.c==='status'?null:typeEff(m.t,foe.types),chip=ef===null||ef===1?'':`<i class="ef ${ef>1?'good':ef===0?'no':'bad'}">×${ef===.5?'½':ef===.25?'¼':ef}</i>`;
-        return `<button class="mc" style="--t:${tc(m.t)}" onclick="UI.pick({t:'move',i:${i}})" ${m.pp<=0?'disabled':''}><span class="mico2">${EMO[m.t]||'⚪'}</span><span><b><em class="kb">${i+1}</em>${esc(m.n)}</b><small>${CAT[m.c]} · ${tn(m.t)}</small></span>${chip}<span class="mm">${m.c==='status'?'Estado':'Pot. '+m.p} · Prec. ${m.a||'—'} · PP ${m.pp}/${m.max}</span></button>`}).join('')
+        return `<button class="mc" style="--t:${tc(m.t)}" onclick="UI.pick({t:'move',i:${i},mega:UI.megaSel})" ${m.pp<=0||(me.lock!=null&&me.lock!==i&&me.mv[me.lock]&&me.mv[me.lock].pp>0)?'disabled':''}><span class="mico2">${EMO[m.t]||'⚪'}</span><span><b><em class="kb">${i+1}</em>${esc(m.n)}</b><small>${CAT[m.c]} · ${tn(m.t)}</small></span>${chip}<span class="mm">${m.c==='status'?'Estado':'Pot. '+m.p} · Prec. ${m.a||'—'} · PP ${m.pp}/${m.max}</span></button>`}).join('')
         :`<button class="mc" style="--t:#A8A878" onclick="UI.pick({t:'move',i:-1})"><span class="mico2">💢</span><span><b>Forcejeo</b><small>Sin PP restantes</small></span><span class="mm">Pot. 50 · te hace daño de retroceso</span></button>`;
-      c.innerHTML=`<div class="mvg">${cards}</div><button class="lnk" onclick="UI.view('main')">← Volver</button>`;
+      const mb=me.mega&&!me.megaOn&&!B.p.megaUsed?`<button class="megab ${UI.megaSel?'on':''}" onclick="UI.megaSel=!UI.megaSel;UI.view('moves')">${/eternamax/.test(me.mega.form)?'🌌 Eternamax':'💎 Megaevolucionar'} · ${esc(me.mega.label)} ${UI.megaSel?'✔':''}</button>`:'';
+      c.innerHTML=`${mb}<div class="mvg">${cards}</div><button class="lnk" onclick="UI.view('main')">← Volver</button>`;
     }else{
       const cards=B.p.team.map((m,i)=>{
         const dis=m.fainted||(i===B.p.i&&!forced),pct=m.hp/m.maxHp*100;
@@ -2149,6 +2225,20 @@ const BDIFF=[
 ];
 const BT={diff:'normal',team:Array(6).fill(null)},BK='neggydex_battle_v1';
 function btInit(){try{const d=JSON.parse(localStorage.getItem(BK)||'null');if(d&&d.team&&d.team.length===6){BT.team=d.team;BT.diff=d.diff||'normal'}}catch(e){}btRender()}
+function itemOptions(s){
+  const cur=s.item||'',o=(k,n)=>`<option value="${k}" ${k===cur?'selected':''}>${n}</option>`;
+  let h=o('','— Sin objeto —')+'<optgroup label="Competitivos">'+COMP.map(([k,n])=>o(k,n)).join('')+'</optgroup><optgroup label="Potenciadores de tipo">'+Object.keys(TYPE_ITEMS).map(t=>o('type:'+t,TYPE_ITEMS[t]+' ('+tn(t)+')')).join('')+'</optgroup>';
+  const mg=MGC[s.id]||[];if(mg.length)h+='<optgroup label="Piedras Mega">'+mg.map(f=>o('mega:'+f,stoneName(f,s.id))).join('')+'</optgroup>';
+  return h;
+}
+function itemDesc(s){
+  const it=itemOf(s.item,s.id);if(!it)return 'Sin objeto equipado.';
+  if(it.kind==='stone')if(/eternamax/.test(it.form))return '🌌 Al activarlo en combate, Eternatus se vuelve Eternamax (PS 255, Def/DeE 250…), una vez por combate.';
+  return '💎 Permite megaevolucionar (una vez por combate): activa «Megaevolucionar» al elegir un ataque.';
+  if(it.kind==='type')return '+20 % de daño en ataques de tipo '+tn(it.t)+'.';
+  return COMPD[it.k]||'';
+}
+function btItem(i,v){if(BT.team[i]){BT.team[i].item=v||undefined;btRender()}}
 function btSlot(s,i){
   if(!s)return `<div class="slot empty"><div class="plus">＋</div><div class="sno">Pokémon ${i+1}</div><input id="bp${i}" placeholder="Buscar Pokémon…" autocomplete="off"></div>`;
   const p=all[s.id-1],ty=p.types,c1=tc(ty[0]||'normal'),c2=ty[1]?tc(ty[1]):tl(ty[0]||'normal'),st=BD.statsOf(s.id);
@@ -2157,6 +2247,7 @@ function btSlot(s,i){
   return `<div class="slot" style="--c1:${c1};--c2:${c2}"><span class="sn2">${i+1}</span><button class="rm" onclick="btRm(${i})" aria-label="Quitar Pokémon">×</button>
     <div class="top"><div class="pic"><img data-id="${s.id}" alt=""></div><div class="info"><div class="nm">${p.es} <small class="lvb">Nv. ${BD.lv}</small></div><div class="types" style="justify-content:flex-start">${ty.map(badge).join('')}</div><input id="bp${i}" class="chg" placeholder="Cambiar Pokémon…" autocomplete="off"></div></div>
     <div class="bst">${stats}</div>
+    <div class="itrow"><span>🎒</span><select class="itsel" onchange="btItem(${i},this.value)">${itemOptions(s)}</select></div><div class="itd">${itemDesc(s)}</div>
     <div class="mh2">Movimientos <b>${s.mv.length}/4</b></div><div class="mlist">${mv}</div>
     ${s.mv.length<4?`<input id="bm${i}" class="addm" placeholder="＋ Añadir movimiento…" autocomplete="off">`:'<div class="full">Movimientos completos</div>'}</div>`;
 }
@@ -2171,6 +2262,7 @@ function btRender(){
     attach($('bp'+i),q=>rank(all,q,60),monRow,m=>m.es,async m=>{try{await getMon(m.id);BT.team[i]={id:m.id,mv:(await BD.pickMoves(m.id)).map(x=>BD.brief(x))};btRender()}catch(e){toast('No se pudo cargar ese Pokémon.')}});
     if(s&&$('bm'+i))attach($('bm'+i),q=>rank(MOVESB,q,3000),mvRow,m=>m.n,m=>{if(s.mv.length<4&&!s.mv.some(x=>x.slug===m.slug)){s.mv.push(BD.brief(m.slug));btRender()}});
   });
+  BT.team.forEach(s=>{if(s&&MGC[s.id]===undefined&&!MGP[s.id]){MGP[s.id]=1;getMegas(s.id).then(r=>{if(r.length)btRender()}).catch(()=>{})}});
   document.querySelectorAll('#bt-slots .pic img').forEach(im=>animInto(im,+im.dataset.id,false,112));
   try{localStorage.setItem(BK,JSON.stringify(BT))}catch(e){}
 }
@@ -2185,7 +2277,7 @@ async function btImport(v){
 }
 async function btRandom(){
   $('bt-err').textContent='Creando equipo aleatorio…';
-  try{const plan=await BD.plan('normal');BT.team=Array(6).fill(null).map((_,i)=>plan[i]?{id:plan[i].id,mv:plan[i].slugs.map(x=>BD.brief(x))}:null);$('bt-err').textContent=''}
+  try{const plan=await BD.plan('normal');BT.team=Array(6).fill(null).map((_,i)=>plan[i]?{id:plan[i].id,mv:plan[i].slugs.map(x=>BD.brief(x)),item:plan[i].item}:null);$('bt-err').textContent=''}
   catch(e){$('bt-err').textContent='No se pudo crear el equipo (sin conexión con PokeAPI).'}
   btRender();
 }
@@ -2196,9 +2288,9 @@ async function btStart(){
   if(!team.length){$('bt-err').textContent='Añade al menos un Pokémon con un movimiento.';return}
   const go=$('bt-go');go.disabled=true;go.textContent='Preparando combate…';$('bt-err').textContent='';
   try{
-    const [pt,plan]=await Promise.all([Promise.all(team.map(s=>BD.mon(s.id,s.mv.map(m=>m.slug)))),BD.plan(BT.diff)]);
-    const at=await Promise.all(plan.map(x=>BD.mon(x.id,x.slugs)));
-    B.trainer=newTrainer();B.diff=BT.diff;B.p={team:pt,i:0};B.a={team:at,i:0,lastSw:-9};B.turn=0;B.over=null;B.busy=false;B.resigned=false;
+    const [pt,plan]=await Promise.all([Promise.all(team.map(s=>BD.mon(s.id,s.mv.map(m=>m.slug),s.item))),BD.plan(BT.diff)]);
+    const at=await Promise.all(plan.map(x=>BD.mon(x.id,x.slugs,x.item)));
+    B.trainer=newTrainer();B.diff=BT.diff;B.p={team:pt,i:0,megaUsed:false};B.a={team:at,i:0,lastSw:-9,megaUsed:false};B.turn=0;B.over=null;B.busy=false;B.resigned=false;
     go.disabled=false;go.textContent='⚔️ Comenzar combate';
     await btLoop();return;
   }catch(e){console.error(e);$('bt-err').textContent='No se pudo iniciar el combate (¿sin conexión con PokeAPI?).';btMenu()}
@@ -2924,29 +3016,39 @@ addEventListener('keydown',e=>{if(UI._adv&&(e.key===' '||e.key==='Enter')&&$('v-
 
 /* ================= Mega, formas regionales (con shiny) y fondos de tarjeta ================= */
 const FM={},FC={},REGN={alola:'de Alola',galar:'de Galar',hisui:'de Hisui',paldea:'de Paldea'};
+const SUF={eternamax:'Eternamax',gmax:'Gigamax',origin:'Forma Origen',altered:'Forma Alterada',sky:'Forma Cielo',land:'Forma Tierra',therian:'Forma Tótem',incarnate:'Forma Avatar',unbound:'Desatada',confined:'Contenida',attack:'Forma Ataque',defense:'Forma Defensa',speed:'Forma Velocidad',normal:'Forma Normal',black:'Negra',white:'Blanca',ultra:'Ultra','dusk-mane':'Melena Crepuscular','dawn-wings':'Alas del Alba',complete:'Completo','10':'10 %','50':'50 %','10-power-construct':'10 % Power Construct','50-power-construct':'50 % Power Construct',zen:'Modo Daruma',ice:'Jinete Glacial',shadow:'Jinete Espectral','rapid-strike':'Estilo Fluido','single-strike':'Estilo Brusco','rapid-strike-gmax':'Fluido Gigamax','single-strike-gmax':'Brusco Gigamax',crowned:'Corona',hero:'Héroe',terastal:'Teracristal',stellar:'Astral',small:'Pequeño',large:'Grande',super:'Gigante','combat-breed':'Combatiente','blaze-breed':'Ardiente','aqua-breed':'Acuática',plant:'Planta',sandy:'Arena',trash:'Basura',heat:'Calor',wash:'Lavado',frost:'Frío',fan:'Ventilador',mow:'Corte',female:'Hembra',male:'Macho',striped:'Rayas'};
+const sufOf=(n,id)=>{const b=all[id-1].name;return n.startsWith(b+'-')?n.slice(b.length+1):n};
+function sufLabel(suf){
+  let m=suf.match(/^mega(?:-([xyz]))?$/);if(m)return 'Mega'+(m[1]?' '+m[1].toUpperCase():'');
+  m=suf.match(/^(alola|galar|hisui|paldea)(?:-(.+))?$/);
+  if(m)return 'de '+({alola:'Alola',galar:'Galar',hisui:'Hisui',paldea:'Paldea'})[m[1]]+(m[2]?' · '+(SUF[m[2]]||pretty(m[2])):'');
+  return SUF[suf]||suf.split('-').map(t=>SUF[t]||pretty(t)).join(' · ');
+}
 function fLabel(n,baseId){
-  const bn=monName(baseId,all[baseId-1].name),m=n.match(/-mega(?:-([xyz]))?$/);
+  const bn=monName(baseId,all[baseId-1].name),suf=sufOf(n,baseId),m=suf.match(/^mega(?:-([xyz]))?$/);
   if(m)return 'Mega '+bn+(m[1]?' '+m[1].toUpperCase():'');
-  const r=n.match(/-(alola|galar|hisui|paldea)(?:-(.+))?$/);
-  return r?bn+' '+REGN[r[1]]+(r[2]?' ('+pretty(r[2])+')':''):pretty(n);
+  return /^(alola|galar|hisui|paldea)/.test(suf)?bn+' '+sufLabel(suf):bn+' ('+sufLabel(suf)+')';
 }
 const CF={form:'',shiny:0};
 const MEGA_IDS=new Set([3,6,9,15,18,26,36,65,71,80,94,115,121,127,130,142,149,150,154,160,181,208,212,214,227,229,248,254,257,260,282,302,303,306,308,310,319,323,334,354,358,359,362,373,376,380,381,384,398,428,445,448,460,475,478,485,491,500,530,531,545,560,604,609,623,652,655,658,668,670,687,689,691,701,718,719,740,768,780,807,870,952,970,978,998]);
-const fKey=n=>{const m=n.match(/-mega(?:-([xyz]))?$/);return m?(m[1]?'1'+m[1]:'0'):'2'+n};
+const FD={};
+const fKey=n=>{const m=n.match(/-mega(?:-([xyz]))?$/);return m?(m[1]?'1'+m[1]:'0'):/-gmax$/.test(n)?'3'+n:/-(alola|galar|hisui|paldea)/.test(n)?'2'+n:'4'+n};
 function renderChips(id){
   const v=(FM[id]||[]).slice().sort((a,b)=>fKey(a).localeCompare(fKey(b)));
   if(modalId!==id||!v.length||!$('fchips'))return;
-  const short=n=>{const m=n.match(/-mega(?:-([xyz]))?$/);if(m)return '⚡ Mega'+(m[1]?' '+m[1].toUpperCase():'');const r=n.match(/-(alola|galar|hisui|paldea)(?:-(.+))?$/);return '🌍 '+({alola:'Alola',galar:'Galar',hisui:'Hisui',paldea:'Paldea'})[r[1]]+(r[2]?' · '+pretty(r[2]):'')};
-  $('fchips').innerHTML='<button class="'+(CF.form?'':'on')+'" onclick="fSelect(\'\',this)">Base</button>'+v.map(n=>'<button class="'+(CF.form===n?'on':'')+'" onclick="fSelect(\''+n+'\',this)">'+short(n)+'</button>').join('');
+  const ic=n=>/-mega/.test(n)?'⚡ ':/-gmax$/.test(n)?'🌀 ':/eternamax/.test(n)?'🌌 ':/-(alola|galar|hisui|paldea)/.test(n)?'🌍 ':'🔀 ';
+  $('fchips').innerHTML='<button class="'+(CF.form?'':'on')+'" onclick="fSelect(\'\',this)">'+(FD[id]||'Base')+'</button>'+v.map(n=>'<button class="'+(CF.form===n?'on':'')+'" onclick="fSelect(\''+n+'\',this)">'+ic(n)+sufLabel(sufOf(n,id))+'</button>').join('');
   $('fchips').hidden=false;
 }
-/* Formas listadas por PokeAPI + sondeo de las Mega que falten (Mega, X, Y y Z de Leyendas Z-A) */
+/* Todas las formas que lista PokeAPI (menos las cosméticas) + sondeo de las Mega que falten (Mega, X, Y y Z) */
 function setForms(id,sp){
-  const ok=n=>/-mega|-(alola|galar|hisui|paldea)/.test(n)&&!/-gmax/.test(n);
-  const v=(sp.varieties||[]).filter(x=>!x.is_default).map(x=>x.pokemon.name).filter(ok);
+  const bad=/-(cap|starter|totem|cosplay|rock-star|belle|pop-star|phd|libre|busted|disguised|totem-alola|totem-disguised)$/;
+  const vs=sp.varieties||[],def=(vs.find(x=>x.is_default)||{pokemon:{name:''}}).pokemon.name,base=all[id-1].name;
+  FD[id]=def&&def!==base?sufLabel(sufOf(def,id)):'';
+  const v=vs.filter(x=>!x.is_default).map(x=>x.pokemon.name).filter(n=>!bad.test(n));
   FM[id]=v;renderChips(id);
   if(!MEGA_IDS.has(id))return;
-  const base=all[id-1].name,have=new Set(v);
+  const have=new Set(v);
   Promise.all(['-mega','-mega-x','-mega-y','-mega-z'].map(x=>base+x).filter(n=>!have.has(n)).map(n=>FC[n]?Promise.resolve(n):fetch(API+'pokemon/'+n).then(r=>r.ok?r.json():null).then(j=>{if(j){FC[n]=j;return n}return null}).catch(()=>null)))
     .then(r=>{const add=r.filter(Boolean);if(add.length){FM[id]=[...v,...add];renderChips(id)}});
 }
@@ -2977,6 +3079,20 @@ function fSprite(img,f,shiny){
   img.src=ch[0].u;
 }
 
+/* Easter egg: escribe «neggy» en cualquier buscador (o en cualquier parte) */
+(function(){
+  let buf='';
+  function egg(){
+    if(document.querySelector('.egg'))return;
+    const e=document.createElement('div');e.className='egg';
+    e.innerHTML='<div><img alt="Bonnie Kirk" src="https://i.pinimg.com/736x/5d/7f/21/5d7f2195806f7734dc37f5529d808343.jpg"><b>¡Bonnie Kirk salvaje apareció!</b><small>Toca para cerrar</small></div>';
+    const im=e.querySelector('img');im.onerror=()=>{im.onerror=null;im.src=SPR+'56.png'};
+    const close=()=>{e.remove();document.removeEventListener('keydown',esc)},esc=k=>{if(k.key==='Escape')close()};
+    e.onclick=close;document.addEventListener('keydown',esc);document.body.appendChild(e);setTimeout(close,5000);
+  }
+  document.addEventListener('input',e=>{const v=e.target&&e.target.value;if(typeof v==='string'&&v.trim().toLowerCase()==='neggy')egg()});
+  document.addEventListener('keydown',e=>{if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.key.length!==1)return;buf=(buf+e.key.toLowerCase()).slice(-5);if(buf==='neggy'){buf='';egg()}});
+})();
 init();
 </script>
 </body>
